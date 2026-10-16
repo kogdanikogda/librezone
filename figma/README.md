@@ -1,29 +1,26 @@
-# Макеты Figma
+# Макеты Figma — Libre.Zone 2.0
 
-Файл: https://www.figma.com/design/jqZVFffwL1sr7I2bqepGIP/  
-Страница: **Libre.zone v3 · Mobile** (id `27507:27471`).  
-Оригинальные экраны (Showcase) не тронуты.
+Файл: https://www.figma.com/design/8AzhfYFeMH3XJBfWboYR39/Libre.Zone-2.0  
+Файл пересобран с нуля: всё на auto layout, компоненты со свойствами, только токены (без сырых цветов).
 
-## Токены
-Коллекция переменных **Libre v3**, режимы Light и Dark: цвета (`color/page`, `surface`, `field`, `text`, `text2`, `text3`, `line`, `brand`, `brand-soft`, `brand-dis`, `on-brand`, `grad-1..3`, `btn-dis`, `ok/warn/err` и их фоны, `badge`, `scrim`, `on-grad*`), радиусы (`radius/card`, `field`, `pill`), отступы (`space/page`, `space/gap`).  
-Текстовые стили (Manrope): Display/H1, Heading/H2, Heading/H3, Body/Strong, Body/Regular, Body/Small, Caption, Number/Large, Button. Эффект: Shadow/Card.
-
-## Компоненты (всё на auto layout)
-| Компонент | Свойства |
+## Страницы
+| Страница | Что внутри |
 |---|---|
-| `icon/*` (13 штук, Mingcute Line) | — |
-| Header | Badge (boolean), Count (text) |
-| Tabbar | Active = home / orders / profile |
-| Button | Style = Primary / Outline / Disabled; Label |
-| Status tag | Tone = ok / err / info / neu |
-| Order card | Tone = ok / err / neu; Id, Route, Date, Repeat |
-| Notification row | Tone = info / ok / err / neu; Title, Description, Time, Unread, Chevron |
-| Field | State = View / Edit / Locked; Label, Value |
-| Tile | Title, Text |
+| Cover | Обложка |
+| Foundations | Образцы цветов (Light/Dark), типографика, отступы, радиусы, тени |
+| Icons | 42 иконки Mingcute Line как компоненты `Icon/<name>` |
+| Components | 17 наборов компонентов |
+| Screens | 8 экранов 390×844 × 2 темы, прототип со ссылками между экранами |
 
-## Экраны (390 × 844)
-Светлая тема: Главная, Мои обмены, Уведомления, Профиль, Профиль · редактирование.  
-Тёмная тема (те же экраны, режим Dark переменных): Главная, Мои обмены, Уведомления, Профиль.
+## Токены (переменные)
+- **Primitives** → **Color** (Light / Dark, алиасы на примитивы) → **Dimensions** (space, radius, size).
+- Текстовые стили Manrope: Display/H1, Heading/H2, H3, Logo, Number/Large, Body/Strong, Regular, Small, Caption, Button.
+- Эффекты: Shadow/Card, Soft, Nav, Sheet, Brand.
 
-## Что ещё не перенесено
-Новый обмен, экран обмена со статусами, вход, документы, планшет / Mini App, логотип-спираль в шапке (в макете пока текстовый логотип).
+## Компоненты
+Logo (Wordmark) · Icon button (Style, Icon, Badge, Count) · Button (Style × Size × State; Label, Icon, Show icon) · Status tag (Tone) · Chip (Selected) · Tab item / Tabbar · Header · Field (View/Edit/Locked/Error) · Order card (Tone) · Notification row (Tone; Title, Description, Time, Unread) · Option row · Timer · Tile · Amount row · Sheet (Content — instance swap) + Sheet content · Modal (Tone).
+
+## Экраны
+Главная, Новый обмен, Оплата, Мои обмены, Уведомления (шторка), Профиль, Вход (шторка), Выйти? (модальное окно). Светлая и тёмная тема получаются сменой режима коллекции Color. Два flow: Light и Dark, стартуют с «Главная».
+
+Старый файл `jqZVFffwL1sr7I2bqepGIP` больше не используется.
