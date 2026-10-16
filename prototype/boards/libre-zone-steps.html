@@ -1,0 +1,103 @@
+<title>Libre.zone: индикация шагов</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap">
+<style>
+:root{--bg:#F5F3FB;--card:#FFFFFF;--t:#16122B;--t2:#5F5978;--t3:#8A84A3;--line:#E4DFF2;--accent:#6535F5;--soft:#EEE8FF;--field:#F1EEF9;--ok:#0B7A5F;--on:#fff;--fd:"Manrope","Inter",system-ui,sans-serif;--font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--t3:#7E789A;--line:#34304F;--accent:#A58BFF;--soft:#2A2250;--field:#231F38;--ok:#45D3A2;--on:#16102F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--t3:#7E789A;--line:#34304F;--accent:#A58BFF;--soft:#2A2250;--field:#231F38;--ok:#45D3A2;--on:#16102F;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:var(--font);font-size:15px;line-height:1.5;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 72px}
+.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+h1,h2,h3{font-family:var(--fd);margin:0;text-wrap:balance}
+h1{font-size:32px;line-height:1.15;font-weight:800}h3{font-size:17px;font-weight:800}
+p{margin:0;text-wrap:pretty}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.intro{display:flex;flex-direction:column;gap:10px;max-width:780px}.lead{color:var(--t2);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.card{background:var(--card);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card>p{color:var(--t2);font-size:13px}
+.hd{display:flex;align-items:baseline;gap:10px}
+.hd span{font-size:12px;font-weight:700;color:var(--accent);background:var(--soft);border-radius:8px;padding:1px 8px}
+.pair{display:grid;grid-template-columns:1fr;gap:10px}
+.fr{background:var(--bg);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.fr>small{font-size:11px;color:var(--t3);font-weight:600}
+.ph{height:44px;border-radius:12px;background:var(--card);display:flex;align-items:center;padding:0 12px;color:var(--t3);font-size:12px}
+.ic{display:inline-block;vertical-align:middle}
+/* текущий */
+.cur .prog{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cur .prog i{height:4px;border-radius:4px;background:var(--line)}.cur .prog i.on{background:linear-gradient(135deg,#4F2BFF,#8349FF 50%,#D447D6)}
+.hl{display:flex;justify-content:space-between;align-items:baseline}.hl b{font:700 18px/24px var(--fd)}.hl span{font-size:12px;color:var(--t2)}
+/* A: степпер как в заявке */
+.sa{display:flex}
+.sa .s{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.sa .tr{display:flex;align-items:center;width:100%}
+.sa .l{flex:1;height:2px;background:var(--line)}.sa .l.on{background:var(--accent)}.sa .l.off{background:none}
+.sa .b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:700 12px var(--fd);background:var(--field);color:var(--t3);flex:none}
+.sa .b.done{background:var(--accent);color:var(--on)}
+.sa .b.now{background:var(--card);color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.sa .n{font-size:11px;color:var(--t3);font-weight:500;text-align:center}.sa .n.now{color:var(--t);font-weight:700}.sa .n.done{color:var(--t2)}
+/* B: сегменты с подписями */
+.sb{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.sb .s{display:flex;flex-direction:column;gap:6px}
+.sb i{height:6px;border-radius:6px;background:var(--line)}.sb .done i{background:var(--accent)}.sb .now i{background:var(--accent)}
+.sb .now i{position:relative}.sb .now i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:50%;border-radius:0 6px 6px 0;background:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.sb span{font-size:11px;color:var(--t3);font-weight:500;display:flex;gap:4px;align-items:center}
+.sb .now span{color:var(--t);font-weight:700}.sb .done span{color:var(--t2)}
+/* C: заголовок с номером и точками */
+.sc{display:flex;align-items:center;gap:10px}
+.sc .num{width:32px;height:32px;border-radius:10px;background:var(--accent);color:var(--on);display:grid;place-items:center;font:800 15px var(--fd);flex:none}
+.sc .tt{flex:1;min-width:0}.sc .tt b{display:block;font:700 18px/22px var(--fd)}.sc .tt small{font-size:12px;color:var(--t2)}
+.sc .dots{display:flex;gap:5px;align-items:center}.sc .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}.sc .dots i.done{background:var(--accent)}.sc .dots i.now{width:22px;border-radius:8px;background:var(--accent)}
+/* D: пилюли */
+.sd{display:flex;gap:6px}
+.sd .p{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;height:34px;border-radius:99px;background:var(--field);color:var(--t3);font-size:12px;font-weight:600;min-width:0;white-space:nowrap}
+.sd .p b{font:700 11px var(--fd);width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:var(--line);color:var(--t2);flex:none}
+.sd .p.done{color:var(--t2)}.sd .p.done b{background:var(--accent);color:var(--on)}
+.sd .p.now{background:var(--accent);color:var(--on)}.sd .p.now b{background:var(--on);color:var(--accent)}
+/* E: кольцо */
+.se{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:16px;padding:10px 12px}
+.se .ring{position:relative;width:46px;height:46px;flex:none}
+.se .ring svg{display:block}.se .ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 13px var(--fd)}
+.se .tt b{display:block;font:700 17px/22px var(--fd)}.se .tt small{font-size:12px;color:var(--t2)}
+/* F: хлебные крошки */
+.sf{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;flex-wrap:wrap}
+.sf .c{color:var(--t3)}.sf .c.done{color:var(--accent)}.sf .c.now{color:var(--t);font-weight:800;background:var(--soft);border-radius:8px;padding:2px 9px}
+.sf svg{color:var(--t3)}
+.sf .c.done{display:inline-flex;gap:4px;align-items:center}
+.line2{height:3px;background:var(--line);border-radius:3px;margin-top:2px;overflow:hidden}.line2 i{display:block;height:100%;background:var(--accent)}
+</style>
+<div class="wrap">
+ <div class="intro">
+  <span class="eyebrow">Libre.zone · новый обмен</span>
+  <h1>Индикация шагов</h1>
+  <p class="lead">Сейчас в мастере три короткие полоски с градиентом и подпись «Шаг 2 из 3». Полоски не говорят, как называются шаги и что уже пройдено. Ниже шесть вариантов без градиента: сплошной цвет, названия шагов и явное «пройдено, сейчас, дальше». Каждый показан на шагах 2 и 3.</p>
+ </div>
+ <div class="grid" id="g"></div>
+</div>
+<script>
+const CK='<svg class="ic" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const N=['Сумма','Реквизиты','Проверка'];
+const st=(s,i)=>i<s?'done':i===s?'now':'';
+const V={
+cur:s=>'<div class="prog cur" style="display:contents"><div class="prog" style="display:grid">'+[0,1,2].map(i=>'<i class="'+(i<=s?'on':'')+'"></i>').join('')+'</div></div><div class="hl"><b>'+(s===1?'Реквизиты':'Проверка')+'</b><span>Шаг '+(s+1)+' из 3</span></div>',
+A:s=>'<div class="sa">'+N.map((n,i)=>'<div class="s"><div class="tr"><i class="l '+(i===0?'off':(i<=s?'on':''))+'"></i><span class="b '+st(s,i)+'">'+(i<s?CK:i+1)+'</span><i class="l '+(i===2?'off':(i<s?'on':''))+'"></i></div><span class="n '+st(s,i)+'">'+n+'</span></div>').join('')+'</div>',
+B:s=>'<div class="sb">'+N.map((n,i)=>'<div class="s '+st(s,i)+'"><i></i><span>'+(i<s?CK:'')+n+'</span></div>').join('')+'</div>',
+C:s=>'<div class="sc"><span class="num">'+(s+1)+'</span><div class="tt"><b>'+N[s]+'</b><small>Дальше: '+(N[s+1]||'оплата')+'</small></div><div class="dots">'+[0,1,2].map(i=>'<i class="'+st(s,i)+'"></i>').join('')+'</div></div>',
+D:s=>'<div class="sd">'+N.map((n,i)=>'<span class="p '+st(s,i)+'"><b>'+(i<s?CK:i+1)+'</b>'+n+'</span>').join('')+'</div>',
+E:s=>{const p=(s+1)/3,c=2*Math.PI*20;return '<div class="se"><div class="ring"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="20" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="23" cy="23" r="20" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 23 23)"/></svg><b>'+(s+1)+'/3</b></div><div class="tt"><b>'+N[s]+'</b><small>'+(s<2?'Дальше: '+N[s+1]:'Последний шаг')+'</small></div></div>'},
+F:s=>'<div class="sf">'+N.map((n,i)=>(i?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>':'')+'<span class="c '+st(s,i)+'">'+(i<s?CK:'')+n+'</span>').join('')+'</div><div class="line2"><i style="width:'+((s+1)/3*100)+'%"></i></div>'
+};
+const info={
+cur:['Сейчас','Три полоски с градиентом и подпись «Шаг 2 из 3». Названия других шагов не видно.'],
+A:['Кружки и линия','Такой же степпер, как в детали заявки: единый язык для всего приложения. Пройдено — галочка, сейчас — кружок с обводкой, дальше — серый.'],
+B:['Сегменты с названиями','Самое близкое к нынешнему, но сплошной цвет и подписи под каждой полоской. Текущий сегмент заполнен наполовину.'],
+C:['Номер и заголовок','Крупный номер шага слева от заголовка, справа компактные точки. Занимает меньше места по высоте, не конкурирует с карточкой с суммой.'],
+D:['Пилюли','Три кнопки-шага, текущая залита. Самый наглядный вариант, но подписи мелкие и плотные на узком экране.'],
+E:['Кольцо','Кольцо с «2/3» и название шага. Минимум места, но другие шаги не видно.'],
+F:['Крошки','Названия шагов в строке: пройденные с галочкой, текущий выделен, дальше серые. Под строкой тонкая линия прогресса.']
+};
+const frame=(k,s)=>'<div class="fr"><small>Шаг '+(s+1)+'</small>'+V[k](s)+'<div class="ph">Поля формы</div></div>';
+document.getElementById('g').innerHTML=Object.keys(info).map(k=>'<div class="card"><div class="hd"><span>'+(k==='cur'?'—':k)+'</span><h3>'+info[k][0]+'</h3></div><div class="pair">'+frame(k,1)+frame(k,2)+'</div><p>'+info[k][1]+'</p></div>').join('');
+</script>

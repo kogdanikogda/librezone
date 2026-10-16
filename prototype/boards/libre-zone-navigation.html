@@ -1,0 +1,244 @@
+<title>Libre.zone: навигация</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+<style>
+/* Сравнение схем навигации: телефон-макеты в стиле Индиго + разбор, что куда переезжает. */
+:root{--bg:#F5F3FB;--surface:#FFFFFF;--text:#16122B;--text2:#5F5978;--line:#E4DFF2;--accent:#4B30E0;--soft:#ECE9FF;--good:#14804A;
+ --fd:"Manrope","Inter",system-ui,sans-serif;--font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F0D1A;--surface:#191628;--text:#F2F0FA;--text2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#241D44;--good:#4CD38A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F0D1A;--surface:#191628;--text:#F2F0FA;--text2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#241D44;--good:#4CD38A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 72px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+.intro{display:flex;flex-direction:column;gap:10px;max-width:760px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:var(--fd);font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0;font-weight:800;text-wrap:balance}
+h2{font-family:var(--fd);font-size:24px;line-height:1.2;margin:0;font-weight:800}
+.intro p,.sec-head p{margin:0;color:var(--text2);max-width:70ch}
+section{display:flex;flex-direction:column;gap:20px}
+.sec-head{display:flex;flex-direction:column;gap:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px}
+.card{background:var(--surface);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:0 1px 2px rgba(30,20,70,.05),0 10px 28px -16px rgba(30,20,70,.18)}
+.card header{display:flex;align-items:flex-start;gap:12px}
+.key{flex:none;width:30px;height:30px;border-radius:9px;background:var(--text);color:var(--surface);display:grid;place-items:center;font-family:var(--fd);font-weight:800}
+.card h3{margin:0;font-family:var(--fd);font-size:18px;line-height:1.25}
+.sub{margin:2px 0 0;font-size:13px;color:var(--text2)}
+.rec{margin-left:auto;flex:none;font-size:12px;padding:3px 10px;border-radius:999px;background:var(--accent);color:var(--surface);font-weight:600}
+.desc{margin:0;font-size:14px;color:var(--text2)}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;line-height:1.45}
+.pc h4{margin:0 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.pc .plus{color:var(--good)} .pc .minus{color:#C2352B}
+.pc ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:3px}
+.stage{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:16px 8px;border-radius:16px;background:var(--bg)}
+
+/* ----- телефон (фиксированная светлая палитра Индиго) ----- */
+.ph{width:270px;height:560px;border-radius:30px;background:#F5F5FA;color:#1B1730;position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px -20px rgba(30,20,112,.45);font-size:12px;line-height:1.35;
+ --g:linear-gradient(150deg,#1E1470 0%,#3B25C4 55%,#6A45FF 100%);--b:#4B30E0;--s:#ECE9FF;--t2:#5C5878;--t3:#8E89A8;--sf:#FFFFFF;--fl:#F1EEFB}
+.ph .top{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 8px}
+.lg{display:flex;align-items:center;gap:6px;font-family:var(--fd);font-weight:800;font-size:15px;letter-spacing:-.02em}
+.lg i{width:20px;height:20px;border-radius:6px;background:var(--g);display:grid;place-items:center}
+.lg i svg{width:15px;height:15px}
+.lg b{color:var(--b)}
+.x{font-size:18px;color:#1B1730}
+.body{flex:1;display:flex;flex-direction:column;gap:7px;padding:4px 14px 14px;min-height:0;overflow:hidden}
+.u{display:flex;align-items:center;gap:10px;background:var(--sf);border-radius:16px;padding:10px;box-shadow:0 6px 16px -10px rgba(30,20,112,.25)}
+.av{width:34px;height:34px;border-radius:50%;background:var(--s);color:var(--b);display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+.u b{display:block;font-size:13px}
+.u span{color:var(--t2);font-size:11px}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:#0E7A43;background:#DDF6E8;border-radius:999px;padding:2px 8px;margin-left:auto;white-space:nowrap}
+.live::before{content:"";width:6px;height:6px;border-radius:50%;background:#16A35A}
+.act{background:var(--g);color:#fff;border-radius:16px;padding:11px 12px;display:flex;flex-direction:column;gap:6px}
+.act .r{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.act small{opacity:.8;font-size:10.5px}
+.act b{font-size:13px}
+.pill{font-size:10.5px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.18);white-space:nowrap}
+.bar{height:4px;border-radius:2px;background:rgba(255,255,255,.22);overflow:hidden}.bar i{display:block;height:100%;width:76%;background:#fff;border-radius:2px}
+.nl{display:flex;flex-direction:column;background:var(--sf);border-radius:16px;padding:4px 10px}
+.ni{display:flex;align-items:center;gap:10px;min-height:35px;font-size:13.5px;font-weight:600}
+.ni + .ni{border-top:1px solid #EEEBF7}
+.ni .ic{width:26px;height:26px;border-radius:8px;background:var(--s);color:var(--b);display:grid;place-items:center;flex:none}
+.ni .ic svg{width:15px;height:15px}
+.ni .cnt{margin-left:auto;font-size:10.5px;background:var(--b);color:#fff;border-radius:999px;padding:1px 7px}
+.ni .val{margin-left:auto;font-size:11.5px;color:var(--t2);font-weight:500}
+.ni .chev{margin-left:auto;color:var(--t3)}
+.seg2{margin-left:auto;display:flex;background:var(--fl);border-radius:8px;padding:2px;font-size:10.5px;font-weight:600}
+.seg2 span{padding:2px 8px;border-radius:6px;color:var(--t2)} .seg2 .on{background:#fff;color:#1B1730;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.tg{display:flex;align-items:center;justify-content:center;gap:6px;min-height:34px;border-radius:12px;background:#2AABEE;color:#fff;font-weight:600;font-size:12.5px}
+.fine{font-size:10px;color:var(--t3);text-align:center;line-height:1.4}
+.fine a{color:var(--t2);text-decoration:none}
+.out{text-align:center;color:#C4121F;font-weight:600;font-size:12px;padding:4px}
+.lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);font-weight:600;padding:2px 4px 0}
+/* главная с таб-баром */
+.hero{position:relative;padding:6px 16px 46px;background:radial-gradient(55% 45% at 88% 18%,rgba(75,48,224,.30),transparent 72%),radial-gradient(50% 40% at 0% 78%,rgba(106,69,255,.22),transparent 72%),linear-gradient(180deg,#ECEAFB,#F5F5FA)}
+.hero h4{margin:6px 0 4px;font-family:var(--fd);font-size:20px;line-height:1.15;letter-spacing:-.02em}
+.hero h4 em{font-style:normal;color:var(--b)}
+.hero p{margin:0;color:var(--t2);font-size:11px}
+.calc{margin:-34px 12px 0;border-radius:18px;background:var(--g);color:#fff;padding:12px;display:flex;flex-direction:column;gap:8px;position:relative}
+.pb{background:rgba(255,255,255,.12);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.pb .r{display:flex;justify-content:space-between;align-items:center}
+.pb small{opacity:.75;font-size:10px}
+.pb b{font-size:17px;font-family:var(--fd)}
+.cp{font-size:11px;background:rgba(255,255,255,.14);border-radius:999px;padding:4px 9px;font-weight:600}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.chips span{height:30px;border-radius:9px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-weight:600;font-size:11px}
+.chips .on{background:#fff;color:var(--b)}
+.cb{height:34px;border-radius:10px;background:#fff;color:var(--b);display:grid;place-items:center;font-weight:700;font-size:12px}
+.mini{position:absolute;left:10px;right:10px;bottom:66px;background:#1B1730;color:#fff;border-radius:14px;padding:9px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 10px 22px -10px rgba(0,0,0,.5)}
+.mini .dot{width:28px;height:28px;border-radius:9px;background:var(--g);display:grid;place-items:center;flex:none;font-size:10px;font-weight:700}
+.mini b{display:block;font-size:11.5px}
+.mini span{font-size:10.5px;opacity:.75}
+.mini .tm{margin-left:auto;font-family:var(--fd);font-weight:700;font-size:13px}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:58px;background:rgba(255,255,255,.96);display:grid;grid-template-columns:repeat(3,1fr);box-shadow:0 -10px 24px -18px rgba(30,20,112,.4);padding-bottom:6px}
+.tabs span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10px;color:var(--t3);font-weight:600;position:relative}
+.tabs span svg{width:20px;height:20px}
+.tabs .on{color:var(--b)}
+.tabs .bdg{position:absolute;top:7px;left:calc(50% + 6px);min-width:15px;height:15px;border-radius:8px;background:#E5484D;color:#fff;font-size:9px;display:grid;place-items:center;padding:0 4px}
+.tgbar{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px;background:#fff;font-size:12px;font-weight:600}
+.tgbar .cl{color:#2AABEE;font-weight:500}
+.tgbar .md{display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.tgbar .md small{font-weight:400;color:var(--t3);font-size:10px}
+.mainbtn{position:absolute;left:0;right:0;bottom:58px;height:44px;background:#4B30E0;color:#fff;display:grid;place-items:center;font-weight:600;font-size:12.5px}
+.ann{position:absolute;font-size:10px;background:#FFE15A;color:#2A1A00;border-radius:6px;padding:2px 6px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.caption{font-size:12px;color:var(--text2);text-align:center;margin-top:6px}
+.phwrap{display:flex;flex-direction:column;align-items:center}
+
+/* таблица переездов */
+.tablewrap{overflow-x:auto;background:var(--surface);border-radius:20px;box-shadow:0 1px 2px rgba(30,20,70,.05),0 10px 28px -16px rgba(30,20,70,.18)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+th,td{text-align:left;padding:12px 16px;vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--text2);font-weight:600}
+tr + tr td{border-top:1px solid var(--line)}
+td:first-child{font-weight:600}
+.tag{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--soft);color:var(--accent);font-weight:600}
+.tag.add{background:#DDF6E8;color:#0E7A43}
+.tag.del{background:#FFE9E8;color:#B3261E}
+.reco{background:var(--surface);border-radius:20px;padding:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;box-shadow:0 1px 2px rgba(30,20,70,.05),0 10px 28px -16px rgba(30,20,70,.18)}
+.reco h3{margin:0 0 6px;font-family:var(--fd);font-size:17px}
+.reco p{margin:0;color:var(--text2);font-size:14px}
+@media (max-width:420px){.grid{grid-template-columns:1fr}.pc{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Libre.zone · навигация</span>
+    <h1>Меню: улучшить или убрать</h1>
+    <p>Сейчас меню дублирует то, что можно держать на виду: три раздела, контакты и выход. В нём нет самого важного — активного обмена и того, работает ли сервис прямо сейчас. Ниже три схемы. Во всех трёх активный обмен виден с любого экрана.</p>
+  </div>
+
+  <section>
+    <div class="sec-head"><h2>Что не так с текущим экраном</h2></div>
+    <div class="reco">
+      <div><h3>Пустой экран ради трёх ссылок</h3><p>Три раздела и выход занимают полэкрана, ниже пусто. Чтобы перейти из «Моих обменов» в «Профиль», нужно два касания вместо одного.</p></div>
+      <div><h3>Нет активного обмена</h3><p>Пользователь, который оплатил и ждёт крипту, чаще всего открывает меню, чтобы найти свою заявку. Её нет ни здесь, ни в шапке.</p></div>
+      <div><h3>Лишнее и случайное</h3><p>Строка про reCAPTCHA не нужна в меню — её место в мелком тексте у формы входа. «Выйти» стоит в одном ряду с основными разделами и легко нажимается случайно.</p></div>
+      <div><h3>Не хватает</h3><p>Кто вошёл (имя, телефон), работает ли сервис сейчас, язык RU/EN и тема, реферальная программа, ссылки на правила и политику.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Три схемы</h2></div>
+    <div class="grid">
+
+      <article class="card">
+        <header><span class="key">A</span><div><h3>Меню, доработанное</h3><p class="sub">Оставляем бургер, наполняем экран</p></div></header>
+        <div class="stage"><div class="phwrap"><div class="ph">
+          <div class="top"><span class="lg"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 6.5v11h4.2"/><path d="M11.2 6.5h6.4l-6.4 11h6.4"/></svg></i><span>Libre<b>.zone</b></span></span><span class="live" style="margin-left:auto;margin-right:10px">Работаем до 18:30</span><span class="x">✕</span></div>
+          <div class="body">
+            <div class="u"><span class="av">ИИ</span><div><b>Иван Иванов</b><span>+7 999 123-45-67</span></div></div>
+            <div class="act"><div class="r"><small>Активный обмен · OQQVWWL7A</small><span class="pill">Ожидание платежа</span></div><div class="r"><b>5 000 ₽ → 60,30 USDT</b><b>07:45</b></div><div class="bar"><i></i></div></div>
+            <div class="nl">
+              <div class="ni"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4m0 16-4-4m4 4 4-4"/></svg></span>Новый обмен</div>
+              <div class="ni"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>Мои обмены<span class="cnt">1 активный</span></div>
+              <div class="ni"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span>Профиль</div>
+              <div class="ni"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zm0 0h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg></span>Пригласить друга<span class="chev">›</span></div>
+            </div>
+            <div class="nl">
+              <div class="ni" style="font-weight:500">Язык<span class="seg2"><span class="on">RU</span><span>EN</span></span></div>
+              <div class="ni" style="font-weight:500">Тема<span class="seg2"><span class="on">Авто</span><span>☀</span><span>☾</span></span></div>
+            </div>
+            <div class="tg">Чат поддержки в Telegram</div>
+            <div class="fine">support@libre.zone · 10:00–18:30 МСК<br><a href="#">Правила</a> · <a href="#">Политика</a> · <a href="#">AML</a></div>
+            <div class="out">Выйти</div>
+          </div>
+        </div></div></div>
+        <p class="desc">Тот же бургер, но экран отвечает на вопросы «где моя заявка» и «работаете ли вы сейчас». Разделы стали короче, выход ушёл вниз и выделен красным.</p>
+        <div class="pc"><div><h4 class="plus">Плюсы</h4><ul><li>Минимум изменений в дизайне</li><li>Всё служебное в одном месте</li></ul></div><div><h4 class="minus">Минусы</h4><ul><li>Разделы по-прежнему в двух касаниях</li><li>Активный обмен виден только в меню</li></ul></div></div>
+      </article>
+
+      <article class="card">
+        <header><span class="key">B</span><div><h3>Нижняя панель</h3><p class="sub">Меню не нужно</p></div><span class="rec">Рекомендую</span></header>
+        <div class="stage">
+          <div class="phwrap"><div class="ph">
+            <div class="top"><span class="lg"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 6.5v11h4.2"/><path d="M11.2 6.5h6.4l-6.4 11h6.4"/></svg></i><span>Libre<b>.zone</b></span></span><span class="live">Работаем</span></div>
+            <div class="hero"><h4>Криптообмены с <em>фиксированными</em> суммами</h4><p>Просто. Быстро. Безопасно.</p></div>
+            <div class="calc"><div class="pb"><div class="r"><div><small>Отдаю</small><br><b>5 000</b></div><span class="cp">₽ RUB</span></div><div class="r"><div><small>Получаю</small><br><b>60,30</b></div><span class="cp">USDT ▾</span></div></div><div class="chips"><span>50 ₽</span><span>100 ₽</span><span>1 000 ₽</span><span class="on">5 000 ₽</span><span>10 000 ₽</span><span>50 000 ₽</span></div><div class="cb">Продолжить</div></div>
+            <div class="mini"><span class="dot">₮</span><div><b>OQQVWWL7A</b><span>Ожидание платежа</span></div><span class="tm">07:45</span></div>
+            <div class="tabs"><span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4m0 16-4-4m4 4 4-4"/></svg>Обмен</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Мои обмены<i class="bdg">1</i></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Профиль</span></div>
+          </div><p class="caption">Главная</p></div>
+          <div class="phwrap"><div class="ph">
+            <div class="top"><b style="font-family:var(--fd);font-size:17px">Профиль</b></div>
+            <div class="body">
+              <div class="u"><span class="av">ИИ</span><div><b>Иван Иванов</b><span>+7 999 123-45-67 · ivan@mail.ru</span></div></div>
+              <span class="lbl">Помощь</span>
+              <div class="nl"><div class="ni" style="color:#2AABEE">Чат поддержки в Telegram<span class="chev">›</span></div><div class="ni" style="font-weight:500">support@libre.zone<span class="val">10:00–18:30</span></div></div>
+              <span class="lbl">Настройки</span>
+              <div class="nl"><div class="ni" style="font-weight:500">Уведомления<span class="val">Telegram</span></div><div class="ni" style="font-weight:500">Язык<span class="seg2"><span class="on">RU</span><span>EN</span></span></div><div class="ni" style="font-weight:500">Тема<span class="seg2"><span class="on">Авто</span><span>☀</span><span>☾</span></span></div></div>
+              <div class="nl"><div class="ni" style="font-weight:500">Пригласить друга<span class="chev">›</span></div><div class="ni" style="font-weight:500">Правила и политика<span class="chev">›</span></div></div>
+              <div class="out">Выйти</div>
+            </div>
+            <div class="tabs"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4m0 16-4-4m4 4 4-4"/></svg>Обмен</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Мои обмены<i class="bdg">1</i></span><span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Профиль</span></div>
+          </div><p class="caption">Профиль: сюда переезжает всё из меню</p></div>
+        </div>
+        <p class="desc">Три раздела всегда внизу, переход в одно касание. Над панелью — плашка активного обмена с таймером на любом экране. Поддержка, настройки и выход уходят в «Профиль».</p>
+        <div class="pc"><div><h4 class="plus">Плюсы</h4><ul><li>Разделы в одно касание</li><li>Активный обмен виден всегда</li><li>Привычно для мобильных приложений и Mini App</li></ul></div><div><h4 class="minus">Минусы</h4><ul><li>Панель занимает ~58 px высоты</li><li>Нужно перенести контакты в Профиль</li></ul></div></div>
+      </article>
+
+      <article class="card">
+        <header><span class="key">C</span><div><h3>Telegram Mini App</h3><p class="sub">Шапку и кнопку даёт Telegram</p></div></header>
+        <div class="stage"><div class="phwrap"><div class="ph">
+          <div class="tgbar"><span class="cl">Закрыть</span><span class="md">Libre.zone<small>мини-приложение</small></span><span>⋯</span></div>
+          <div class="hero" style="padding-top:12px"><h4>Криптообмены с <em>фиксированными</em> суммами</h4><p>Работаем до 18:30 МСК</p></div>
+          <div class="calc"><div class="pb"><div class="r"><div><small>Отдаю</small><br><b>5 000</b></div><span class="cp">₽ RUB</span></div><div class="r"><div><small>Получаю</small><br><b>60,30</b></div><span class="cp">USDT ▾</span></div></div><div class="chips"><span>50 ₽</span><span>100 ₽</span><span>1 000 ₽</span><span class="on">5 000 ₽</span><span>10 000 ₽</span><span>50 000 ₽</span></div></div>
+          <span class="ann" style="right:12px;top:50px">меню «⋯»: настройки, поддержка</span>
+          <div class="mainbtn">Продолжить · 5 000 ₽</div>
+          <span class="ann" style="left:12px;bottom:106px">кнопка Telegram</span>
+          <div class="tabs"><span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4m0 16-4-4m4 4 4-4"/></svg>Обмен</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Мои обмены<i class="bdg">1</i></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Профиль</span></div>
+        </div></div></div>
+        <p class="desc">Структура как в B, но без своей шапки: «Закрыть», название и меню «⋯» рисует Telegram, а главная кнопка — его нативная. Вход через Telegram, поэтому «Выйти» не нужен.</p>
+        <div class="pc"><div><h4 class="plus">Плюсы</h4><ul><li>Выглядит родным для Telegram</li><li>Больше места под контент</li><li>Не нужен выход и пароль</li></ul></div><div><h4 class="minus">Минусы</h4><ul><li>Шапку и кнопку нельзя стилизовать полностью</li><li>Нужна отдельная вёрстка под Mini App</li></ul></div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Что куда переезжает в схеме B</h2><p>Ничего из текущего меню не теряется.</p></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Элемент</th><th>Сейчас</th><th>В схеме B</th><th>В Mini App (C)</th></tr></thead>
+      <tbody>
+        <tr><td>Новый обмен</td><td>Меню</td><td>Вкладка «Обмен»</td><td>Вкладка «Обмен»</td></tr>
+        <tr><td>Мои обмены</td><td>Меню</td><td>Вкладка со счётчиком активных</td><td>Вкладка со счётчиком</td></tr>
+        <tr><td>Мой профиль</td><td>Меню</td><td>Вкладка «Профиль»</td><td>Вкладка «Профиль»</td></tr>
+        <tr><td>Активный обмен</td><td><span class="tag del">нет</span></td><td><span class="tag add">новое</span> Плашка над панелью с таймером</td><td><span class="tag add">новое</span> Плашка + уведомление в чате бота</td></tr>
+        <tr><td>Работаем ли сейчас</td><td><span class="tag del">нет</span></td><td><span class="tag add">новое</span> Метка в шапке</td><td><span class="tag add">новое</span> Строка под заголовком</td></tr>
+        <tr><td>Чат поддержки, email, часы</td><td>Низ меню</td><td>Профиль → «Помощь»; на странице заявки — «Написать в поддержку» с номером</td><td>Меню «⋯» Telegram + страница заявки</td></tr>
+        <tr><td>Язык и тема</td><td><span class="tag del">нет</span></td><td><span class="tag add">новое</span> Профиль → «Настройки»</td><td>Берутся из Telegram автоматически</td></tr>
+        <tr><td>Реферальная программа</td><td>Внутри профиля</td><td>Профиль, отдельная строка</td><td>Профиль + «Поделиться» в Telegram</td></tr>
+        <tr><td>Правила, политика</td><td><span class="tag del">нет</span></td><td>Профиль, одна строка; подвал главной</td><td>Меню «⋯»</td></tr>
+        <tr><td>Выйти</td><td>Меню, в ряду с разделами</td><td>Низ профиля, красным, с подтверждением</td><td><span class="tag">не нужен</span> вход через Telegram</td></tr>
+        <tr><td>reCAPTCHA</td><td>Меню</td><td>Мелким текстом под формой входа</td><td><span class="tag">не нужна</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Что я бы выбрал</h2></div>
+    <div class="reco">
+      <div><h3>Веб: схема B</h3><p>Отдельный экран меню можно убрать совсем. Это на одно касание короче до любого раздела, а активный обмен всегда на виду.</p></div>
+      <div><h3>Mini App: схема C</h3><p>Та же структура вкладок, что в B, поэтому вёрстка общая. Отличаются только шапка, главная кнопка и отсутствие выхода.</p></div>
+      <div><h3>Если бургер нужен заказчику</h3><p>Схема A: экран остаётся, но получает активный обмен, статус работы, язык и тему, а выход уходит вниз.</p></div>
+    </div>
+  </section>
+</div>

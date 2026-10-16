@@ -1,0 +1,110 @@
+<title>Libre.zone: спираль как фон</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap">
+<style>
+:root{--bg:#F5F3FB;--card:#FFFFFF;--t:#16122B;--t2:#5F5978;--line:#E9E5F4;--accent:#6535F5;--soft:#EEE8FF;--field:#F1EEF9;--ok:#0B7A5F;--hero:linear-gradient(180deg,#F0EBFF,#F6F5FB);--sp:#6535F5;--grad:linear-gradient(135deg,#4F2BFF 0%,#8349FF 50%,#D447D6 100%);--fd:"Manrope","Inter",system-ui,sans-serif;--font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--k:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#2A2250;--field:#231F38;--ok:#45D3A2;--hero:linear-gradient(180deg,#1B1633,#14111F);--sp:#A58BFF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#2A2250;--field:#231F38;--ok:#45D3A2;--hero:linear-gradient(180deg,#1B1633,#14111F);--sp:#A58BFF;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:var(--font);font-size:15px;line-height:1.5;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 72px}
+.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+h1,h2,h3{font-family:var(--fd);margin:0;text-wrap:balance}
+h1{font-size:32px;line-height:1.15;font-weight:800}h3{font-size:17px;font-weight:800}
+p{margin:0;text-wrap:pretty}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.intro{display:flex;flex-direction:column;gap:10px;max-width:780px}.lead{color:var(--t2);font-size:16px}
+.ctrl{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:var(--card);border-radius:16px;padding:12px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.ctrl label{font-size:13px;font-weight:600;color:var(--t2)}
+.ctrl input{accent-color:var(--accent);width:220px;max-width:100%}
+.ctrl output{font-size:13px;font-weight:700;min-width:44px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--card);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card>p{color:var(--t2);font-size:13px}
+.hd{display:flex;align-items:baseline;gap:10px}
+.hd span{font-size:12px;font-weight:700;color:var(--accent);background:var(--soft);border-radius:8px;padding:1px 8px}
+.stage{border-radius:18px;background:var(--bg);padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.sp{position:absolute;pointer-events:none;color:var(--sp);opacity:calc(var(--o,.1)*var(--k))}
+.sp svg{width:100%;height:100%;display:block;overflow:visible}
+.rel{position:relative;overflow:hidden;isolation:isolate}
+.rel>*:not(.sp){position:relative;z-index:1}
+/* фрагменты интерфейса */
+.hero{background:var(--hero);border-radius:16px;padding:22px 18px 20px;min-height:200px}
+.hero h4{font:800 26px/1.15 var(--fd);margin:0 0 8px;letter-spacing:-.01em}.hero h4 b{color:var(--accent)}
+.hero p{font-size:13px;color:var(--t2);max-width:210px}
+.calc{background:var(--grad);border-radius:20px;padding:16px;color:#fff;min-height:190px;display:flex;flex-direction:column;gap:10px}
+.calc .f{background:rgba(255,255,255,.16);border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.calc small{opacity:.8;font-size:11px;display:block}.calc b{font:800 22px/1.2 var(--fd)}
+.calc .pill{background:rgba(255,255,255,.2);border-radius:99px;padding:5px 12px;font-weight:700;font-size:13px}
+.calc .btn{background:#fff;color:#4F2BFF;border-radius:14px;text-align:center;font-weight:700;padding:11px}
+.why{display:flex;gap:10px;overflow:hidden}
+.wc{background:var(--card);border-radius:18px;padding:16px;min-width:190px;flex:none;min-height:150px;box-shadow:0 6px 18px rgba(79,43,255,.12)}
+.wc .i{width:38px;height:38px;border-radius:12px;background:var(--soft);display:grid;place-items:center;color:var(--accent);margin-bottom:10px}
+.wc b{font-size:14px;display:block;line-height:19px;margin-bottom:4px}.wc span{font-size:12px;color:var(--t2);line-height:17px}
+.timer{background:var(--field);border-radius:18px;padding:16px;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.timer .n{font:800 44px/1.1 var(--fd);font-variant-numeric:tabular-nums}.timer small{color:var(--t2);font-size:12px}
+.timer .bar{height:5px;border-radius:5px;background:var(--line);margin:10px 6px 0;overflow:hidden}.timer .bar i{display:block;height:100%;width:62%;background:var(--accent)}
+.done{background:var(--card);border-radius:18px;padding:24px 16px;text-align:center;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.done .ck{width:56px;height:56px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center}
+.done b{font:800 18px var(--fd)}
+.ref{background:var(--grad);border-radius:20px;padding:20px;color:#fff;min-height:190px}
+.ref h4{font:800 20px/1.2 var(--fd);margin:0 0 8px;max-width:230px}.ref p{font-size:13px;opacity:.9;max-width:230px}
+.ref .btn{display:inline-block;margin-top:14px;background:#fff;color:#4F2BFF;font-weight:700;border-radius:12px;padding:9px 18px}
+.empty{background:var(--card);border-radius:18px;padding:26px 16px;text-align:center;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.empty .art{width:96px;height:96px;position:relative;margin-bottom:6px;color:var(--sp)}
+.empty .art svg{width:100%;height:100%}
+.empty b{font:800 16px var(--fd)}.empty span{font-size:13px;color:var(--t2);max-width:230px}
+.sheet{background:var(--card);border-radius:24px 24px 0 0;padding:10px 16px 18px;display:flex;flex-direction:column;gap:8px}
+.sheet .gr{width:40px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 6px}
+.sheet .lg{display:flex;align-items:center;gap:8px;font:800 21px var(--fd)}.sheet .lg b{color:var(--accent)}
+.sheet .tg{background:#2AABEE;color:#fff;border-radius:14px;padding:12px;text-align:center;font-weight:700;margin-top:6px}
+.spin{animation:rot 60s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+.rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.rules .card{gap:6px}.rules p{font-size:13px;color:var(--t2)}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs></defs>__SYMS__</svg>
+<div class="wrap">
+ <div class="intro">
+  <span class="eyebrow">Libre.zone · оформление</span>
+  <h1>Двойная спираль как фон</h1>
+  <p class="lead">Логотип принят: двойная спираль без плитки, повёрнутая на −45°. Здесь та же спираль работает как фирменный рисунок в блоках интерфейса. Девять вариантов на реальных фрагментах экранов. Ползунок меняет заметность рисунка сразу везде.</p>
+ </div>
+ <div class="ctrl"><label for="k">Заметность рисунка</label><input id="k" type="range" min="0.3" max="2.2" step="0.1" value="1"><output id="ko">100%</output><span style="color:var(--t2);font-size:12px">Влияет на светлую и тёмную тему одинаково</span></div>
+ <div class="grid" id="g"></div>
+ <h3>Как использовать, чтобы не перегрузить интерфейс</h3>
+ <div class="rules">
+  <div class="card"><h3>Только в декоративных местах</h3><p>Первый блок, карточки-акценты, пустые состояния, итог. Не под формами ввода, не под таблицами и не под цифрами, которые нужно прочитать быстро.</p></div>
+  <div class="card"><h3>Один рисунок на экран</h3><p>Если на экране уже есть крупная спираль в первом блоке, в карточках ниже не повторяем её в том же размере.</p></div>
+  <div class="card"><h3>Всегда обрезается краем</h3><p>Спираль выглядит дороже, когда уходит за границу блока, а не лежит в нём целиком. Исключение: пустое состояние.</p></div>
+  <div class="card"><h3>Движение только там, где идёт процесс</h3><p>Медленное вращение уместно на ожидании платежа. При включённой настройке «уменьшить движение» оно отключается.</p></div>
+ </div>
+</div>
+<script>
+const U=(id,st,cls)=>'<span class="sp '+(cls||'')+'" style="'+st+'"><svg aria-hidden="true"><use href="#s-'+id+'"/></svg></span>';
+const V=[
+['A','Дымка','Огромная спираль за заголовком первого блока, уходит за правый край. Спокойный фон, который почти не мешает тексту.',
+ '<div class="hero rel">'+U('mid','right:-120px;top:-60px;width:360px;height:360px;--o:.13')+'<h4>Криптообмены<br>с <b>фиксированными</b> суммами</h4><p>Обменивайте криптовалюту по понятным и честным правилам.</p></div>'],
+['B','Контур в углу','Тонкая линия белого цвета в углу градиентной карточки с калькулятором. Добавляет глубины, не трогая цифры.',
+ '<div class="calc rel">'+U('thin','right:-70px;bottom:-90px;width:290px;height:290px;color:#fff;--o:.22')+'<div class="f"><div><small>Отдаю</small><b>5 000</b></div><span class="pill">RUB</span></div><div class="f"><div><small>Получаю</small><b>60,30</b></div><span class="pill">USDT</span></div><div class="btn">Продолжить</div></div>'],
+['C','Карточки «Почему»','Небольшая спираль в углу каждой карточки карусели, у каждой свой угол поворота. Карточки отличаются, но остаются одной семьёй.',
+ '<div class="why">'+[['Курс фиксируется',-45,'right:-34px;top:-34px'],['СБП, любой банк',20,'right:-30px;bottom:-40px'],['Без документов',-110,'left:-30px;top:-36px']].map(w=>'<div class="wc rel">'+U('thick','width:110px;height:110px;'+w[2]+';--o:.09;transform:rotate('+(w[1]+45)+'deg)')+'<div class="i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2"/></svg></div><b>'+w[0]+'</b><span>Сумма к оплате не меняется, пока идёт обмен</span></div>').join('')+'</div>'],
+['D','Паттерн','Мелкие спирали сеткой по первому блоку, как сейчас точки. Самый заметный и «фирменный» вариант, но с текстом спорит сильнее всего.',
+ '<div class="hero rel"><svg class="sp" style="inset:0;width:100%;height:100%;--o:.16" aria-hidden="true"><defs><pattern id="pt" width="44" height="44" patternUnits="userSpaceOnUse"><use href="#s-thick" width="26" height="26" x="9" y="9" style="transform-origin:22px 22px"/></pattern></defs><rect width="100%" height="100%" fill="url(#pt)"/></svg><h4>Криптообмены<br>с <b>фиксированными</b> суммами</h4><p>Обменивайте криптовалюту по понятным и честным правилам.</p></div>'],
+['E','Ожидание','Спираль за таймером медленно вращается, пока идёт обмен. Подсказывает, что процесс идёт. Без движения превращается в статичный фон.',
+ '<div class="timer rel">'+U('mid','left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;--o:.12','spin')+'<small>Оплатите в течение</small><div class="n">07:42</div><small>Сумма к оплате 5 000 ₽</small><div class="bar"><i></i></div></div>'],
+['F','Итог','Тонкая спираль сходится к галочке на экране «Обмен завершён». Окрашена в зелёный статуса.',
+ '<div class="done rel">'+U('thin','left:50%;top:38%;width:190px;height:190px;margin:-95px 0 0 -95px;color:var(--ok);--o:.2')+'<div class="ck"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div><b>Обмен завершён</b></div>'],
+['G','Приглашение','Крупная светлая спираль уходит за угол акционной карточки. Хорошо работает на градиенте.',
+ '<div class="ref rel">'+U('thick','right:-60px;top:-50px;width:230px;height:230px;color:#fff;--o:.2')+'<h4>Пригласи друга и получи скидку 10%</h4><p>Друг получит купон на $2 при обмене от 20 000 ₽.</p><span class="btn">Подробнее</span></div>'],
+['H','Пустое состояние','Спираль как иллюстрация, когда обменов ещё нет: сама по себе, с лёгкой подсветкой под ней.',
+ '<div class="empty"><div class="art rel" style="overflow:visible"><span style="position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(circle,var(--soft),transparent 70%)"></span><svg style="position:relative;color:var(--sp)"><use href="#s-mid"/></svg></div><b>Обменов пока нет</b><span>Первый обмен займёт пару минут</span></div>'],
+['I','Шторка входа','Едва заметная спираль за логотипом в верхней части шторки. Задаёт бренд сразу, не отвлекая от кнопки.',
+ '<div class="sheet rel">'+U('mid','right:-50px;top:-70px;width:230px;height:230px;--o:.12')+'<div class="gr"></div><div class="lg"><svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-thick" style="color:#7a45ff"/></svg><span>Libre<b>.zone</b></span></div><div style="font-size:13px;color:var(--t2)">Войдите через Telegram: без кода и пароля.</div><div class="tg">Войти через Telegram</div></div>']
+];
+document.getElementById('g').innerHTML=V.map(v=>'<div class="card"><div class="hd"><span>'+v[0]+'</span><h3>'+v[1]+'</h3></div><div class="stage">'+v[3]+'</div><p>'+v[2]+'</p></div>').join('');
+const k=document.getElementById('k'),ko=document.getElementById('ko');
+k.oninput=()=>{document.documentElement.style.setProperty('--k',k.value);ko.textContent=Math.round(k.value*100)+'%'};
+</script>

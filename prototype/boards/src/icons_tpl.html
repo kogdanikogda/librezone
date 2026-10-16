@@ -1,0 +1,171 @@
+<title>Libre.zone: иконки</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap">
+<style>
+:root{--bg:#F5F3FB;--card:#FFFFFF;--t:#16122B;--t2:#5F5978;--line:#E9E5F4;--accent:#6535F5;--soft:#EEE8FF;--field:#F1EEF9;--fd:"Manrope","Inter",system-ui,sans-serif;--font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--ok:#0B7A5F;--err:#C01F59}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#2A2250;--field:#231F38;--ok:#45D3A2;--err:#FF7EA8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#2A2250;--field:#231F38;--ok:#45D3A2;--err:#FF7EA8;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:var(--font);font-size:15px;line-height:1.5;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 72px}
+.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+h1,h2,h3{font-family:var(--fd);margin:0;text-wrap:balance}
+h1{font-size:32px;line-height:1.15;font-weight:800}
+h2{font-size:21px;font-weight:800}
+h3{font-size:15px;font-weight:700}
+p{margin:0;text-wrap:pretty}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.intro{display:flex;flex-direction:column;gap:10px;max-width:780px}
+.lead{color:var(--t2);font-size:16px}
+.sec{display:flex;flex-direction:column;gap:14px}
+.sec>p{color:var(--t2);max-width:760px}
+.card{background:var(--card);border-radius:20px;padding:18px}
+.ctrl{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.seg{display:inline-flex;background:var(--field);border-radius:12px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{font:inherit;font-size:13px;font-weight:600;border:0;background:none;color:var(--t2);padding:6px 12px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--t);box-shadow:0 1px 3px rgba(40,20,120,.14)}
+.lab{font-size:12px;color:var(--t2);font-weight:600;margin-right:8px}
+.tbl{overflow-x:auto;border-radius:20px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{padding:10px 12px;text-align:center;border-bottom:1px solid var(--line)}
+th{font-size:12px;font-weight:700;color:var(--t2);position:sticky;top:0;background:var(--card);white-space:nowrap}
+th small{display:block;font-weight:500;font-size:11px}
+td:first-child,th:first-child{text-align:left;min-width:190px;position:sticky;left:0;background:var(--card)}
+td:first-child b{font-size:14px;display:block}
+td:first-child span{font-size:12px;color:var(--t2)}
+tr:last-child td{border-bottom:0}
+.ic{display:inline-block;vertical-align:middle;color:var(--t)}
+.ic.st{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cell{background:var(--field);border-radius:14px;padding:14px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--t2);text-align:center}
+.vrow{display:flex;flex-direction:column;gap:8px}
+.vrow>div{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;background:var(--card);border-radius:16px;padding:14px 16px}
+.vrow .t{width:150px;font-size:13px;font-weight:700;flex:none}
+.vrow .t small{display:block;font-weight:500;color:var(--t2);font-size:12px}
+.ctx{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.ph{background:var(--card);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.ph>h3{font-size:14px}.ph>h3 small{display:block;font-weight:500;color:var(--t2);font-size:12px}
+.mini{background:var(--bg);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.mrow{display:flex;gap:12px;align-items:flex-start;background:var(--card);border-radius:14px;padding:12px}
+.mrow .ib{width:36px;height:36px;border-radius:11px;background:var(--soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.mrow .ib .ic{color:inherit}
+.mrow b{font-size:13px;display:block;line-height:18px}.mrow span{font-size:12px;color:var(--t2);line-height:17px}
+.tabs{display:flex;background:var(--card);border-radius:16px;padding:8px 6px}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--t2)}
+.tb.on{color:var(--accent)}.tb .ic{color:inherit}
+.st-row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:600;padding:2px 4px}.st-row .ic{width:18px;height:18px}
+.st-row span{display:inline-flex;gap:5px;align-items:center}
+.note{display:flex;gap:10px;background:var(--field);border-radius:14px;padding:12px 14px;font-size:13px;color:var(--t2);align-items:flex-start}
+.note .ic{color:var(--accent);flex:none;margin-top:1px}
+.verdict{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.verdict .card{display:flex;flex-direction:column;gap:6px}
+.verdict .card p{font-size:13px;color:var(--t2)}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:8px;padding:2px 8px;background:var(--soft);color:var(--accent);width:fit-content}
+</style>
+<div class="wrap">
+ <div class="intro">
+  <span class="eyebrow">Libre.zone · иконки</span>
+  <h1>Единый набор иконок</h1>
+  <p class="lead">В прототипе 33 интерфейсных иконки. Сейчас все они нарисованы вручную. Ниже они собраны вместе и показаны в тех же размерах в четырёх готовых наборах. Логотипы монет, сетей и банков, а также знак LZ сюда не входят: это не иконки интерфейса.</p>
+ </div>
+
+ <section class="sec">
+  <h2>1. Все иконки проекта</h2>
+  <p>Текущий набор, штрих 1,8 px на сетке 24 px. Подпись показывает, где иконка используется.</p>
+  <div class="grid" id="inv"></div>
+  <div class="note" id="nt"></div>
+ </section>
+
+ <section class="sec">
+  <h2>2. Те же иконки в разных наборах</h2>
+  <p>Подобрано ближайшее по смыслу соответствие. Толщину линии можно менять сразу у всех наборов с линейной графикой.</p>
+  <div class="ctrl">
+   <div><span class="lab">Толщина линии</span><div class="seg" id="swc"></div></div>
+   <div><span class="lab">Размер</span><div class="seg" id="szc"></div></div>
+  </div>
+  <div class="tbl"><table id="tbl"></table></div>
+ </section>
+
+ <section class="sec">
+  <h2>3. Вариации внутри одного набора</h2>
+  <p>Чтобы выбрать не только набор, но и характер: тоньше или плотнее, контур или заливка, один цвет или двухслойные.</p>
+  <div class="ctrl"><div><span class="lab">Иконки</span><div class="seg" id="subc"></div></div></div>
+  <div class="vrow" id="var"></div>
+ </section>
+
+ <section class="sec">
+  <h2>4. В интерфейсе</h2>
+  <p>Один и тот же фрагмент: вкладки, строка профиля, пункт «Почему Libre.zone» и статусы. Активная вкладка выделяется заливкой там, где набор её предлагает.</p>
+  <div class="ctx" id="ctx"></div>
+ </section>
+
+ <section class="sec">
+  <h2>5. Что я бы выбрал</h2>
+  <div class="verdict" id="vd"></div>
+ </section>
+</div>
+<script>
+const D=__DATA__;
+const KEYS=Object.keys(D);
+let SW=1.75,SZ=24,SUB='lucide';
+const $=s=>document.querySelector(s);
+function svgS(inner,sz,sw){return '<svg class="ic st" width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" stroke-width="'+sw+'" aria-hidden="true">'+inner+'</svg>'}
+function svgH(inner,sz,fill,sw){ // heroicons
+ return '<svg class="ic" width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" fill="'+(fill?'currentColor':'none')+'" '+(fill?'':'stroke="currentColor" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round"')+' aria-hidden="true">'+inner+'</svg>'}
+function svgP(inner,sz){return '<svg class="ic" width="'+sz+'" height="'+sz+'" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">'+inner+'</svg>'}
+const R={
+ cur:(k,sz,sw)=>svgS(D[k].cur,sz,1.8),
+ lu:(k,sz,sw)=>svgS(D[k].lu,sz,sw),
+ tb:(k,sz,sw)=>svgS(D[k].tb,sz,sw),
+ hr:(k,sz,sw)=>svgH(D[k].hr,sz,false,Math.min(sw,2)*0.86),
+ hs:(k,sz)=>svgH(D[k].hs,sz,true),
+ ph:(k,sz,sw,w)=>svgP(D[k]['ph_'+(w||'regular')],sz)
+};
+function seg(id,items,cur,fn){const el=$(id);el.innerHTML=items.map(i=>'<button aria-pressed="'+(String(i[0])===String(cur))+'" data-v="'+i[0]+'">'+i[1]+'</button>').join('');el.onclick=e=>{const b=e.target.closest('button');if(!b)return;fn(b.dataset.v)}}
+function inv(){$('#inv').innerHTML=KEYS.map(k=>'<div class="cell">'+R.cur(k,28)+'<b style="color:var(--t);font-size:13px">'+D[k].label+'</b><span>'+D[k].use+'</span></div>').join('')}
+function table(){
+ const cols=[['cur','Сейчас','свой набор, 1,8'],['lu','Lucide','линия, скруглённые'],['tb','Tabler','линия, скруглённые'],['hr','Heroicons','линия, мягче'],['ph','Phosphor','regular']];
+ let h='<thead><tr><th>Иконка</th>'+cols.map(c=>'<th>'+c[1]+'<small>'+c[2]+'</small></th>').join('')+'</tr></thead><tbody>';
+ h+=KEYS.map(k=>'<tr><td><b>'+D[k].label+'</b><span>'+D[k].use+'</span></td>'+cols.map(c=>'<td>'+R[c[0]](k,SZ,SW)+'</td>').join('')+'</tr>').join('');
+ $('#tbl').innerHTML=h+'</tbody>'}
+function variants(){
+ const set=SUB, pick=['home','list','user','checkc','closec','copy','clock','warn','lock','bell','shield','bank','percent','logout'];
+ let rows;
+ if(set==='lu'||set==='tb')rows=[1.25,1.5,1.75,2,2.5].map(w=>[w+' px','линия',pick.map(k=>R[set](k,28,w))]);
+ else if(set==='ph')rows=[['thin','Thin','тончайшая'],['light','Light','тонкая'],['regular','Regular','обычная'],['bold','Bold','плотная'],['duotone','Duotone','два слоя'],['fill','Fill','заливка']].map(w=>[w[1],w[2],pick.map(k=>R.ph(k,28,0,w[0]))]);
+ else rows=[['Outline','контур',pick.map(k=>R.hr(k,28,2))],['Solid','заливка',pick.map(k=>R.hs(k,28))]];
+ $('#var').innerHTML=rows.map(r=>'<div><div class="t">'+r[0]+'<small>'+r[1]+'</small></div>'+r[2].join('')+'</div>').join('')}
+function ctx(){
+ const V=[
+  ['Сейчас','свой набор, 1,8',k=>R.cur(k,22),k=>R.cur(k,22)],
+  ['Lucide','1,75 px, активная вкладка — контур',k=>R.lu(k,22,1.75),k=>R.lu(k,22,2.25)],
+  ['Tabler','1,75 px, активная вкладка — контур',k=>R.tb(k,22,1.75),k=>R.tb(k,22,2.25)],
+  ['Phosphor','regular, активная вкладка — Fill',k=>R.ph(k,22,0,'regular'),k=>R.ph(k,22,0,'fill')],
+  ['Phosphor Duotone','двухслойные, активная — Fill',k=>R.ph(k,22,0,'duotone'),k=>R.ph(k,22,0,'fill')],
+  ['Heroicons','контур, активная — Solid',k=>R.hr(k,22,2),k=>R.hs(k,22)]
+ ];
+ $('#ctx').innerHTML=V.map(v=>{const a=v[2],b=v[3];
+  return '<div class="ph"><h3>'+v[0]+'<small>'+v[1]+'</small></h3><div class="mini">'+
+  '<div class="mrow"><span class="ib">'+a('shield')+'</span><div><b>Тщательная проверка данных</b><span>Каждый обмен проходит проверку, данные защищены</span></div></div>'+
+  '<div class="mrow"><span class="ib">'+a('bell')+'</span><div><b>Уведомления</b><span>О статусе обмена придёт сообщение</span></div></div>'+
+  '<div class="mrow"><span class="ib">'+a('lock')+'</span><div><b>Номер телефона</b><span>Изменить нельзя</span></div></div>'+
+  '<div class="st-row"><span style="color:var(--ok)">'+a('checkc')+'Завершён</span><span style="color:var(--err)">'+a('closec')+'Ошибка</span><span style="color:var(--accent)">'+a('clock')+'Ожидание</span></div>'+
+  '<div class="tabs"><div class="tb on">'+b('home')+'Обмен</div><div class="tb">'+a('list')+'Мои обмены</div><div class="tb">'+a('user')+'Профиль</div></div></div></div>'}).join('')}
+function verdict(){
+ $('#vd').innerHTML=[
+  ['Рекомендую','Lucide, 1,75 px','Ближе всего к нынешнему рисунку: те же скруглённые линии и сетка 24 px, поэтому в готовых экранах почти ничего не изменится. Нашлись аналоги для всех 33 иконок. Минус: заливки для активных вкладок нет, активность придётся показывать цветом и толщиной линии.'],
+  ['Если нужна заливка активных','Phosphor Regular + Fill','У каждой иконки шесть начертаний: от тонкого до залитого, плюс Duotone. Так легко сделать залитую активную вкладку и выразительные статусы. Минус: рисунок чуть «круглее» и дружелюбнее, лицо интерфейса немного поменяется.'],
+  ['Запасной вариант','Tabler, 1,75 px','Самая большая линейная библиотека, подойдёт, если понадобятся специальные значки (банки, криптовалюты). Рисунок чуть более технический, чем у Lucide.'],
+  ['Не советую','Heroicons','Набор небольшой, подходящих аналогов для части иконок пришлось искать приблизительно (например, «без документов»), а линия одной толщины. Для нашего интерфейса он самый ограниченный.']
+ ].map(v=>'<div class="card"><span class="tag">'+v[0]+'</span><h3>'+v[1]+'</h3><p>'+v[2]+'</p></div>').join('')}
+function init(){
+ inv();
+ $('#nt').innerHTML='<span>'+R.cur('info',18)+'</span><span>Текущий набор собран вручную: единая толщина 1,8 px и скругления есть, но нет залитых версий для активных состояний и нет гарантии, что новые иконки будут рисоваться в том же стиле. Готовый набор решает обе задачи.</span>';
+ seg('#swc',[1.25,1.5,1.75,2,2.5].map(x=>[x,String(x).replace('.',',')]),SW,v=>{SW=+v;init2()});
+ seg('#szc',[20,24,32].map(x=>[x,x+' px']),SZ,v=>{SZ=+v;init2()});
+ seg('#subc',[['lu','Lucide'],['tb','Tabler'],['ph','Phosphor'],['hr','Heroicons']],SUB,v=>{SUB=v;init2()});
+ table();variants();ctx();verdict()}
+function init2(){seg('#swc',[1.25,1.5,1.75,2,2.5].map(x=>[x,String(x).replace('.',',')]),SW,v=>{SW=+v;init2()});seg('#szc',[20,24,32].map(x=>[x,x+' px']),SZ,v=>{SZ=+v;init2()});seg('#subc',[['lu','Lucide'],['tb','Tabler'],['ph','Phosphor'],['hr','Heroicons']],SUB,v=>{SUB=v;init2()});table();variants()}
+init();
+</script>

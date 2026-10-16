@@ -1,0 +1,69 @@
+<title>Libre.zone: логотип-вихрь</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap">
+<style>
+:root{--bg:#F5F3FB;--card:#FFFFFF;--t:#16122B;--t2:#5F5978;--line:#E9E5F4;--accent:#6535F5;--soft:#EEE8FF;--dark:#14102A;--fd:"Manrope","Inter",system-ui,sans-serif;--font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--grad:linear-gradient(135deg,#4F2BFF 0%,#8349FF 50%,#D447D6 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#2A2250;--dark:#0A0814;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F0D1A;--card:#191628;--t:#F2F0FA;--t2:#A39DBD;--line:#2C2742;--accent:#A58BFF;--soft:#2A2250;--dark:#0A0814;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:var(--font);font-size:15px;line-height:1.5;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 72px}
+.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--fd);margin:0;text-wrap:balance}
+h1{font-size:32px;line-height:1.15;font-weight:800}
+h3{font-size:18px;font-weight:800}
+p{margin:0;text-wrap:pretty}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.intro{display:flex;flex-direction:column;gap:10px;max-width:780px}
+.lead{color:var(--t2);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px}
+.card{background:var(--card);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card p{color:var(--t2);font-size:13px}
+.hd{display:flex;align-items:baseline;gap:10px}
+.hd span{font-size:12px;font-weight:700;color:var(--accent);background:var(--soft);border-radius:8px;padding:1px 8px}
+.tiles{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:10px}
+.tile{border-radius:18px;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.tile svg{width:68%;height:68%}
+.t1{background:var(--grad);--mk:#fff}
+.t2{background:var(--soft);--mk:url(#g)}
+.t3{background:var(--dark);--mk:url(#g)}
+.lock{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:16px;padding:14px 16px}
+.lock .m{width:36px;height:36px;border-radius:11px;background:var(--grad);display:grid;place-items:center;--mk:#fff;flex:none}
+.lock .m svg{width:24px;height:24px}
+.lock .m.bare{background:none;--mk:url(#g)}.lock .m.bare svg{width:36px;height:36px}
+.wm{font-family:var(--fd);font-weight:800;font-size:20px;letter-spacing:-.01em}.wm b{color:var(--accent)}
+.sizes{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.sz{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--t2)}
+.sz i{display:grid;place-items:center;border-radius:22%;background:var(--grad);--mk:#fff}
+.sz i svg{width:72%;height:72%}
+.sz u{display:block;text-decoration:none}
+.sz .bare{background:none;--mk:url(#g)}.sz .bare svg{width:100%;height:100%}
+.cur .lz{background:var(--grad);color:#fff;font-family:var(--fd);font-weight:800;display:grid;place-items:center}
+.ref{max-width:780px;color:var(--t2);font-size:13px}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="100"><stop offset="0" stop-color="#4F2BFF"/><stop offset=".5" stop-color="#8349FF"/><stop offset="1" stop-color="#D447D6"/></linearGradient></defs>__SYMS__</svg>
+<div class="wrap">
+ <div class="intro">
+  <span class="eyebrow">Libre.zone · логотип</span>
+  <h1>Знак-вихрь: семь вариантов</h1>
+  <p class="lead">Закрученные, живые знаки вместо монограммы LZ. Каждый показан тремя способами (на градиенте, на светлом и на тёмном), в связке с названием и в размерах от 16 до 64 px. Все рисунки оригинальные, готовых логотипов я не повторял.</p>
+ </div>
+ <div class="grid" id="g1"></div>
+ <p class="ref">Для сравнения слева сверху стоит текущий знак LZ. Если какой-то вариант нравится, соберу его в финальном виде: подберу толщину линий и отступы, сделаю версии для светлой и тёмной темы и для аватарки Telegram Mini App.</p>
+</div>
+<script>
+const N=__NAMES__;
+const sizes=[16,24,32,48,64];
+const m=(k,c)=>'<svg aria-hidden="true"><use href="#m-'+k+'"/></svg>';
+function card(k){
+ const [n,d]=N[k];
+ return '<div class="card"><div class="hd"><span>'+k+'</span><h3>'+n+'</h3></div>'+
+ '<div class="tiles"><div class="tile t1">'+m(k)+'</div><div class="tile t2">'+m(k)+'</div><div class="tile t3">'+m(k)+'</div></div>'+
+ '<div class="lock"><div class="m">'+m(k)+'</div><span class="wm">Libre<b>.zone</b></span><span style="flex:1"></span><div class="m bare">'+m(k)+'</div></div>'+
+ '<div class="sizes">'+sizes.map(s=>'<div class="sz"><i style="width:'+s+'px;height:'+s+'px">'+m(k)+'</i><u>'+s+'</u></div>').join('')+
+ '<div class="sz"><i class="bare" style="width:24px;height:24px">'+m(k)+'</i><u>без плитки</u></div></div>'+
+ '<p>'+d+'</p></div>'}
+const cur='<div class="card cur"><div class="hd"><span>Сейчас</span><h3>Монограмма LZ</h3></div><div class="tiles"><div class="tile t1"><b class="lz" style="background:none;font-size:44px;color:#fff;font-family:var(--fd);font-weight:800">LZ</b></div></div><p>Текущий знак из принятого дизайна: для сравнения.</p></div>';
+document.getElementById('g1').innerHTML=cur+Object.keys(N).map(card).join('');
+</script>
