@@ -196,6 +196,7 @@ if(k==='d'){demoAct(v);return}
  if(k==='lfinish'){S.user={};S.profile.fio=S.login.fio;S.profile.email=S.login.email;S.profile.phone=S.login.phone.replace(/[\s-]/g,'');S.login=null;S.step=1;go('new');return}
 });
 document.addEventListener('keydown',function(e){
+ if(e.key==='Escape'&&document.body.classList.contains('dopen')){demo('panel:hide');return}
  if(e.key==='Escape'&&(S.menu||S.modal||S.sheet||S.login)){S.login=null;S.menu=false;S.modal=null;S.sheet=null;renderLayer()}
  if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute&&e.target.getAttribute('role')==='button'&&e.target.tagName==='DIV'){e.preventDefault();e.target.click()}
  if(e.key==='Backspace'&&e.target.dataset&&e.target.dataset.code!==undefined&&!e.target.value){var i=+e.target.dataset.code,ins=document.querySelectorAll('[data-code]');if(ins[i-1])ins[i-1].focus()}
@@ -220,7 +221,7 @@ if(mq){if(mq.addEventListener)mq.addEventListener('change',applyMode);else if(mq
 function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if(n)n.textContent=DIRS[v];pressed('dir',v)}
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
- if(k==='panel'){var cl=v==='toggle'?!document.body.classList.contains('clean'):v==='hide';document.body.classList.toggle('clean',cl);var tb=$('#ptoggle');if(tb){tb.textContent=cl?'Показать панель':'Скрыть панель';tb.setAttribute('aria-pressed',String(cl))}try{localStorage.setItem('lz-panel',cl?'hide':'show')}catch(e){}if(typeof fitZoom==='function')fitZoom();return}
+ if(k==='panel'){var op=v==='toggle'?!document.body.classList.contains('dopen'):v==='show';document.body.classList.toggle('dopen',op);var tb=$('#ptoggle');if(tb){tb.setAttribute('aria-expanded',String(op));tb.setAttribute('aria-label',op?'Закрыть меню прототипа':'Открыть меню прототипа')}return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
  if(k==='pal'){$('#phone').setAttribute('data-pal',v);pressed('pal',v);if(v!=='aurora')setDir('a');return}
@@ -265,11 +266,11 @@ window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('
 /* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
 /* крупный интерфейс на больших экранах: масштаб по высоте окна, не выше 1,5 */
-function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32-(document.body.classList.contains('clean')?0:328))/390);z=Math.max(1,Math.round(z*100)/100)}
+function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32)/390);z=Math.max(1,Math.round(z*100)/100)}
  if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
-/* панель: по умолчанию видна; #clean в адресе или прошлый выбор скрывают её */
-(function(){var h=/github\.io$/.test(location.hostname),pv=null;try{pv=localStorage.getItem('lz-panel')}catch(e){}if(pv)h=pv==='hide';if(location.hash==='#clean')h=true;if(location.hash==='#panel')h=false;if(h)demo('panel:hide')})();
+/* сервисный блок — drawer справа; #panel в адресе открывает его */
+if(location.hash==='#panel')demo('panel:show');
 fitZoom();
 })();
 </script>

@@ -90,13 +90,17 @@ button{cursor:pointer}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .stage{display:flex;gap:28px;justify-content:center;align-items:flex-start;flex-wrap:wrap;max-width:940px;margin:0 auto}
 /* сервисная панель скрывается: для показа важен только интерфейс */
-.ptoggle{position:fixed;top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));z-index:50;display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text2);font-size:13px;line-height:20px;font-weight:600;box-shadow:var(--shadow);cursor:pointer}
-.ptoggle:hover{color:var(--brand);border-color:var(--brand)}
-body.clean .ptoggle{opacity:.55}body.clean .ptoggle:hover{opacity:1}
-body.clean .panel{display:none}
-@media (max-width:700px){body.clean{padding-inline:0;padding-block:0}body.clean .phone-wrap{width:100%;flex-basis:100%}body.clean .phone{border-radius:0;border:0;min-height:0;height:100dvh;box-shadow:none}}
-@media (max-width:700px){.ptoggle{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px))}}
-.panel{flex:0 0 300px;width:300px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.ptoggle{position:fixed;top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));z-index:60;display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text2);box-shadow:var(--shadow);cursor:pointer;opacity:.7}
+.ptoggle:hover,.ptoggle:focus-visible,body.dopen .ptoggle{color:var(--brand);border-color:var(--brand);opacity:1}
+.ptoggle .ic-x{display:none}body.dopen .ptoggle .ic-m{display:none}body.dopen .ptoggle .ic-x{display:block}
+.pback{position:fixed;inset:0;z-index:54;background:rgba(10,12,24,.4);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+body.dopen .pback{opacity:1;visibility:visible}
+@media (max-width:700px){body{padding-inline:0;padding-block:0}.phone-wrap{width:100%;flex-basis:100%}.phone{border-radius:0;border:0;min-height:0;height:100dvh;box-shadow:none}.ptoggle{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px))}}
+/* сервисный блок: drawer справа по тапу на гамбургер */
+.panel{position:fixed;top:0;right:0;bottom:0;z-index:55;width:min(320px,100%);padding:72px 16px 24px;padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto;display:flex;flex-direction:column;gap:16px;background:var(--surface);border-left:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
+body.dopen .panel{transform:none;visibility:visible}
+@media (max-width:700px){.panel{padding-block:24px 72px}}
+@media (prefers-reduced-motion:reduce){.panel,.pback{transition:none}}
 .panel h1{font-size:20px;line-height:28px;font-weight:600;margin:0}
 .panel p{margin:0;color:var(--text2)}
 .group{display:flex;flex-direction:column;gap:8px}
@@ -113,7 +117,6 @@ body.clean .panel{display:none}
 .dirnote{font-size:12px;line-height:20px;color:var(--text2);margin:0}
 .phone-wrap{flex:0 1 390px;width:390px;max-width:100%;min-width:0;zoom:var(--z,1)}
 .phone{position:relative;width:100%;height:min(844px,calc((100dvh - 48px) / var(--z,1)));min-height:640px;border:1px solid var(--line);border-radius:32px;overflow:hidden;background:var(--page);color:var(--text);box-shadow:var(--shadow);font-family:var(--font)}
-@media (max-width:700px){.panel{flex-basis:100%;width:100%}}
 
 .num{font-family:var(--fn);font-variant-numeric:tabular-nums}
 .app{position:relative;display:flex;flex-direction:column;height:100%;background:var(--page)}
@@ -800,9 +803,10 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
 .nempty{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:32px 16px;color:var(--text2)}.nempty b{color:var(--text)}
 </style>
 
-<button class="ptoggle" id="ptoggle" data-demo="panel:toggle" type="button" aria-pressed="false">Скрыть панель</button>
+<button class="ptoggle" id="ptoggle" data-demo="panel:toggle" type="button" aria-expanded="false" aria-controls="panel" aria-label="Открыть меню прототипа"><svg class="ic-m" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+<div class="pback" data-demo="panel:hide"></div>
 <main class="stage">
-  <aside class="panel" aria-label="Управление прототипом">
+  <aside class="panel" id="panel" aria-label="Управление прототипом">
     <div class="group" id="dctx" hidden aria-label="Сценарии экрана"></div>
     <div class="group"><span>Тема</span>
       <div class="seg" role="group" aria-label="Тема">
