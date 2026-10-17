@@ -846,7 +846,7 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
 'use strict';
 var $=function(s,r){return (r||document).querySelector(s)};
 var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
-var nf=function(n,d){return new Intl.NumberFormat('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n)};
+var nf=function(n,d){return new Intl.NumberFormat('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n).replace(/\u00a0|\u202f/g,'\u202f')};
 
 var IC={
  lock:'<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 15v2m0-2a1 1 0 1 0 0-2a1 1 0 0 0 0 2Zm5-6V8A5 5 0 0 0 7 8v1zM5 21h14a1 1 0 0 0 1-1V10a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1Z"/>',
@@ -1277,15 +1277,33 @@ function docHTML(){var d=DOCS.filter(function(x){return x.id===S.doc})[0]||DOCS[
   '<div class="dnext">'+DOCS.filter(function(x){return x.id!==d.id}).map(function(x){return '<button class="dcard sm" data-act="doc:'+x.id+'"><span class="g"><small>Другие документы</small><b>'+x.t+'</b></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button>'}).join('')+'</div>';
  return nav(false)+'<div class="content" id="scroller">'+h+'</div>'}
 
-/* типографика: неразрывный пробел после коротких слов, перед тире, между числом и единицей */
-var SHORTW='в|во|и|а|к|ко|с|со|у|о|об|обо|от|до|на|по|за|из|не|ни|но|да|для|при|без|над|под|про|или|что|как|это|же|ли|бы|ее|её|их|мы|вы|он|она|они|то|та|те|все|всё|уже|чем|если|чтобы|когда|где|так|там|тут|вас|нас|вам|нам';
-var RX_SHORT=new RegExp('(^|[\\s\\u00a0(«"])('+SHORTW+')\\s','gi');
-function typo(s){if(!s||s.length<3)return s;
- s=s.replace(RX_SHORT,function(m,a,w){return a+w+' '});s=s.replace(RX_SHORT,function(m,a,w){return a+w+' '});
- s=s.replace(/(\d)[ \u00a0](?=\d{3}(?!\d))/g,'$1\u202f').replace(/(\d)\u202f(?=\d{3}(?!\d))/g,'$1\u202f').replace(/\$\s?(\d)/g,'$$$1').replace(/(\d)\s?\$/g,'$1$$').replace(/(купон|скидк[ау]|скидку)\s/gi,'$1\u00a0');
- s=s.replace(/\s—/g,' —').replace(/(\d)\s(₽|RUB|USDT|USDC|BTC|ETH|TON|мин|ч|сек|%|раз|заяв|минут|дн)/g,'$1 $2').replace(/№\s/g,'№ ');
+/* типографика: неразрывные пробелы (предлоги, союзы, частицы, число + единица, тире, тысячи), висячие предлоги, висячее последнее слово.
+   Правила те же, что в Figma-проходе; функция идемпотентна */
+var NB=' ',TH=' ',NH='‑';
+var PREP='в|во|к|ко|с|со|у|о|об|обо|от|до|на|по|за|из|не|ни|но|да|для|при|без|над|под|про|или|что|как|а|и|я|чем|то|же|ли|бы';
+var RX_SHORT=new RegExp('(^|[ '+NB+'(«„"—–])('+PREP+') ','gi');
+var RX_SP=new RegExp('[ '+NB+']');
+function typo(s,last){if(!s||s.length<2)return s;
+ s=s.replace(/\.\.\./g,'…');
+ s=s.replace(new RegExp('[ '+NB+']+[-–—][ '+NB+']+','g'),NB+'— ');
+ s=s.replace(/(\S) {2,}(?=\S)/g,'$1 ');
+ var phone=/\+\d|\d{2}-\d{2}(?!\d)/.test(s);
+ s=s.replace(RX_SHORT,function(m,a,w){return a+w+NB}).replace(RX_SHORT,function(m,a,w){return a+w+NB});
+ s=s.replace(/(\S) (же|ли|бы)(?=[ .,;:!?)»]|$)/gi,'$1'+NB+'$2');
+ s=s.replace(new RegExp('(\\d)[ '+NB+TH+'](?=\\d{3}(?!\\d))','g'),'$1'+(phone?NB:TH));
+ s=s.replace(/(\d) (?=[A-Za-zА-Яа-яЁё₽$€%°₿])/g,'$1'+NB);
+ s=s.replace(/([A-Za-zА-Яа-яЁё]) (?=[$€₽]\d)/g,'$1'+NB);
+ s=s.replace(/([№§]) /g,'$1'+NB).replace(/ = /g,NB+'='+NB).replace(/ · /g,NB+'· ');
+ s=s.replace(/(^|[^А-Яа-яЁёA-Za-z])([ТтA-Z])-(?=[А-ЯЁA-Z])/g,'$1$2'+NH);
+ if(last&&s.split(RX_SP).length>=5){var i=Math.max(s.lastIndexOf(' '),s.lastIndexOf(NB));if(i>0&&s.charAt(i)===' '){var l=s.slice(i+1),pv=s.slice(0,i).split(RX_SP).pop();if(l.length<=12&&l.length+pv.length<=18)s=s.slice(0,i)+NB+l}}
  return s}
-function typoTree(root){if(!root)return;var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|CODE|INPUT)$/.test(p.nodeName)||(p.closest&&p.closest('.num,.amt,.mono,[data-notypo]')))return NodeFilter.FILTER_REJECT;return n.nodeValue.trim().length>2?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}}),n,list=[];while((n=w.nextNode()))list.push(n);list.forEach(function(t){var v=typo(t.nodeValue);if(v!==t.nodeValue)t.nodeValue=v})}
+function typoOk(n){var p=n.parentNode;return !!p&&!/^(SCRIPT|STYLE|TEXTAREA|CODE|INPUT|TITLE)$/.test(p.nodeName)&&!(p.closest&&p.closest('.mono,[data-notypo]'))}
+function typoNode(n){if(n.nodeValue.trim().length<2||!typoOk(n))return;var v=typo(n.nodeValue,!n.nextSibling);if(v!==n.nodeValue)n.nodeValue=v}
+function typoTree(root){if(!root)return;if(root.nodeType===3){typoNode(root);return}var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,list=[];while((n=w.nextNode()))list.push(n);list.forEach(typoNode)}
+/* типограф следит за DOM: любой новый или изменённый текст (подсказки, таймеры, тосты) обрабатывается сразу */
+(function(){var q=[],f=0;function run(){f=0;var a=q;q=[];a.forEach(typoTree)}
+ new MutationObserver(function(ms){ms.forEach(function(m){if(m.type==='characterData')q.push(m.target);else[].forEach.call(m.addedNodes,function(n){q.push(n)})});if(!f){f=1;requestAnimationFrame(run)}}).observe(document.body,{childList:true,subtree:true,characterData:true});
+ document.addEventListener('DOMContentLoaded',function(){typoTree(document.body)})})();
 /* иконка рядом с текстом: по верхнему краю текста, при одной строке — по центру */
 var IA_SEL='.dbody h3,.dcard,.card.rows .row,.wrow,.why,.notebox,.warnbox,.okbox,.hours .hh,.notify,.check,.eta,.opt,.dsum li,.u,.docnote,.plate,.tg,.timer .row';
 var IA_SKIP=['n','ic','wi','wi2','hi','tok','sw','av','mini-copy','seg2','hstat','hst','tag','ptm','bul','dt','bdot','rubmark','ck'];
@@ -1545,7 +1563,6 @@ document.addEventListener('pointermove',function(e){if(!g)return;var dy=e.client
 function up(){if(!g)return;var sh=g.sh,v=g.dy/Math.max(1,Date.now()-g.t);sh.style.transition='transform .45s var(--sp)';if(g.dy>110||v>.6){sh.style.transition='transform .22s ease-in';sh.style.transform='translateY(110%)';var sc=sh.closest('.scrim');setTimeout(function(){if(sc)sc.click()},170)}else{sh.style.transform='none'}g=null}
 document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);
 })();
+window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
 })();
 </script>
-
-window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
