@@ -9,6 +9,7 @@ function typo(s,last){if(!s||s.length<2)return s;
  s=s.replace(new RegExp('[ '+NB+']+[-–—][ '+NB+']+','g'),NB+'— ');
  s=s.replace(/(\S) {2,}(?=\S)/g,'$1 ');
  var phone=/\+\d|\d{2}-\d{2}(?!\d)/.test(s);
+ s=s.replace(/\+\d(?:[ \u00a0()\-\u2011]*\d){5,}/g,function(m){return m.replace(/[ \u00a0]/g,NB).replace(/-/g,NH)});
  s=s.replace(RX_SHORT,function(m,a,w){return a+w+NB}).replace(RX_SHORT,function(m,a,w){return a+w+NB});
  s=s.replace(/(\S) (же|ли|бы)(?=[ .,;:!?)»]|$)/gi,'$1'+NB+'$2');
  s=s.replace(new RegExp('(\\d)[ '+NB+TH+'](?=\\d{3}(?!\\d))','g'),'$1'+(phone?NB:TH));
