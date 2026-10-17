@@ -258,5 +258,7 @@ function up(){if(!g)return;var sh=g.sh,v=g.dy/Math.max(1,Date.now()-g.t);sh.styl
 document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);
 })();
 window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
+/* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
+demo('theme:'+(mq&&mq.matches?'dark':'light'));
 })();
 </script>
