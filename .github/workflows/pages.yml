@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths: ['prototype/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Собрать сайт
+        run: |
+          mkdir -p _site/boards
+          cp prototype/libre-zone-v3.html _site/index.html
+          cp -r prototype/boards/. _site/boards/
+          rm -rf _site/boards/src
+          {
+            echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Libre.zone: доски</title>'
+            echo '<style>body{font:16px/1.5 system-ui,sans-serif;max-width:640px;margin:0 auto;padding:24px 16px}a{color:#5b3df5}li{margin:6px 0}</style>'
+            echo '<h1>Libre.zone</h1><p><a href="../">Прототип v3</a></p><h2>Доски вариантов</h2><ul>'
+            for f in _site/boards/*.html; do b=$(basename "$f"); [ "$b" = index.html ] && continue; echo "<li><a href=\"$b\">${b%.html}</a></li>"; done
+            echo '</ul>'
+          } > _site/boards/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
