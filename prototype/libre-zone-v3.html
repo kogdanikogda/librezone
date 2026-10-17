@@ -110,8 +110,8 @@ body.clean .panel{display:none}
 .seg.wrap{flex-wrap:wrap}
 .seg.wrap button{flex:1 0 auto}
 .dirnote{font-size:12px;line-height:20px;color:var(--text2);margin:0}
-.phone-wrap{flex:0 1 390px;width:390px;max-width:100%;min-width:0}
-.phone{position:relative;width:100%;height:min(844px,calc(100dvh - 48px));min-height:640px;border:1px solid var(--line);border-radius:32px;overflow:hidden;background:var(--page);color:var(--text);box-shadow:var(--shadow);font-family:var(--font)}
+.phone-wrap{flex:0 1 390px;width:390px;max-width:100%;min-width:0;zoom:var(--z,1)}
+.phone{position:relative;width:100%;height:min(844px,calc((100dvh - 48px) / var(--z,1)));min-height:640px;border:1px solid var(--line);border-radius:32px;overflow:hidden;background:var(--page);color:var(--text);box-shadow:var(--shadow);font-family:var(--font)}
 @media (max-width:700px){.panel{flex-basis:100%;width:100%}}
 
 .num{font-family:var(--fn);font-variant-numeric:tabular-nums}
@@ -1318,7 +1318,8 @@ function typoTree(root){if(!root)return;if(root.nodeType===3){typoNode(root);ret
 var IA_SEL='.dbody h3,.dcard,.card.rows .row,.wrow,.why,.notebox,.warnbox,.okbox,.hours .hh,.notify,.check,.eta,.opt,.dsum li,.u,.docnote,.plate,.tg,.timer .row';
 var IA_SKIP=['n','ic','wi','wi2','hi','tok','sw','av','mini-copy','seg2','hstat','hst','tag','ptm','bul','dt','bdot','rubmark','ck'];
 function textBlockOf(el){var c=el.children;for(var i=0;i<c.length;i++){var x=c[i];if(x.tagName==='svg'||x.tagName==='INPUT')continue;var skip=false;for(var j=0;j<IA_SKIP.length;j++)if(x.classList.contains(IA_SKIP[j])){skip=true;break}if(skip)continue;if(x.textContent.trim())return x}return null}
-function alignIcons(root){if(!root)return;[].forEach.call(root.querySelectorAll(IA_SEL),function(el){var t=textBlockOf(el);if(!t)return;var cs=getComputedStyle(t),lh=parseFloat(cs.lineHeight);if(!lh){var f=t.querySelector('b,span,small');lh=f?parseFloat(getComputedStyle(f).lineHeight):20}if(!lh||isNaN(lh))lh=20;var h=t.getBoundingClientRect().height;el.classList.add('ia');el.classList.toggle('one',h<=lh*1.45)})}
+var ZM=1;
+function alignIcons(root){if(!root)return;[].forEach.call(root.querySelectorAll(IA_SEL),function(el){var t=textBlockOf(el);if(!t)return;var cs=getComputedStyle(t),lh=parseFloat(cs.lineHeight);if(!lh){var f=t.querySelector('b,span,small');lh=f?parseFloat(getComputedStyle(f).lineHeight):20}if(!lh||isNaN(lh))lh=20;var h=t.getBoundingClientRect().height/ZM;el.classList.add('ia');el.classList.toggle('one',h<=lh*1.45)})}
 /* сумма в калькуляторе не заходит под кнопку смены направления: длинное число уменьшается */
 function fitAmts(){[].forEach.call(document.querySelectorAll('#app .crow .amt'),function(a){a.style.fontSize='';var fs=parseFloat(getComputedStyle(a).fontSize),min=17;while(a.scrollWidth>a.clientWidth+0.5&&fs>min){fs-=1;a.style.fontSize=fs+'px'}})}
 function polish(){var a=$('#app'),l=$('#layer');typoTree(a);typoTree(l);alignIcons(a);alignIcons(l);fitAmts()}
@@ -1532,7 +1533,7 @@ if(mq){if(mq.addEventListener)mq.addEventListener('change',applyMode);else if(mq
 function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if(n)n.textContent=DIRS[v];pressed('dir',v)}
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
- if(k==='panel'){var cl=v==='toggle'?!document.body.classList.contains('clean'):v==='hide';document.body.classList.toggle('clean',cl);var tb=$('#ptoggle');if(tb){tb.textContent=cl?'Показать панель':'Скрыть панель';tb.setAttribute('aria-pressed',String(cl))}try{localStorage.setItem('lz-panel',cl?'hide':'show')}catch(e){}return}
+ if(k==='panel'){var cl=v==='toggle'?!document.body.classList.contains('clean'):v==='hide';document.body.classList.toggle('clean',cl);var tb=$('#ptoggle');if(tb){tb.textContent=cl?'Показать панель':'Скрыть панель';tb.setAttribute('aria-pressed',String(cl))}try{localStorage.setItem('lz-panel',cl?'hide':'show')}catch(e){}if(typeof fitZoom==='function')fitZoom();return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
  if(k==='pal'){$('#phone').setAttribute('data-pal',v);pressed('pal',v);if(v!=='aurora')setDir('a');return}
@@ -1560,8 +1561,8 @@ render();
 function pl(w){return parseFloat(getComputedStyle(w).paddingLeft||0)}
 function pos(w,i){var it=w.children[i];return it.offsetLeft-w.offsetLeft-pl(w)}
 document.addEventListener('pointerdown',function(e){var w=e.target.closest&&e.target.closest('#wsl,#ssl');if(!w||e.pointerType==='touch'||e.button!==0)return;d={w:w,x:e.clientX,s:w.scrollLeft,m:false,t:Date.now()}});
-document.addEventListener('pointermove',function(e){if(!d)return;var dx=e.clientX-d.x;if(!d.m&&Math.abs(dx)>4){d.m=true;d.w.style.scrollSnapType='none';d.w.classList.add('drag')}if(d.m){d.w.scrollLeft=d.s-dx}});
-function end(e){if(!d)return;var w=d.w;if(d.m){var dx=e.clientX-d.x,n=w.children.length,best=0,bd=1e9;for(var i=0;i<n;i++){var dd=Math.abs(pos(w,i)-w.scrollLeft);if(dd<bd){bd=dd;best=i}}
+document.addEventListener('pointermove',function(e){if(!d)return;var dx=(e.clientX-d.x)/ZM;if(!d.m&&Math.abs(dx)>4){d.m=true;d.w.style.scrollSnapType='none';d.w.classList.add('drag')}if(d.m){d.w.scrollLeft=d.s-dx}});
+function end(e){if(!d)return;var w=d.w;if(d.m){var dx=(e.clientX-d.x)/ZM,n=w.children.length,best=0,bd=1e9;for(var i=0;i<n;i++){var dd=Math.abs(pos(w,i)-w.scrollLeft);if(dd<bd){bd=dd;best=i}}
  if(Math.abs(dx)>40&&Math.abs(pos(w,best)-d.s)<8)best=Math.max(0,Math.min(n-1,best+(dx<0?1:-1)));
  w.classList.remove('drag');w.style.scrollSnapType='';w.scrollTo({left:pos(w,best),behavior:'smooth'});d.sup=true;setTimeout(function(){},0)}d=null}
 document.addEventListener('pointerup',end);document.addEventListener('pointercancel',end);
@@ -1570,14 +1571,19 @@ document.addEventListener('dragstart',function(e){if(e.target.closest&&e.target.
 
 (function(){var g=null;
 document.addEventListener('pointerdown',function(e){var h=e.target.closest&&e.target.closest('.sheet .grab');if(!h||e.button!==0)return;var sh=h.closest('.sheet');g={sh:sh,y:e.clientY,t:Date.now(),dy:0};sh.style.animation='none';sh.style.transition='none';try{h.setPointerCapture(e.pointerId)}catch(_){}});
-document.addEventListener('pointermove',function(e){if(!g)return;var dy=e.clientY-g.y;g.dy=dy>0?dy:dy/6;g.sh.style.transform='translateY('+g.dy+'px)'});
+document.addEventListener('pointermove',function(e){if(!g)return;var dy=(e.clientY-g.y)/ZM;g.dy=dy>0?dy:dy/6;g.sh.style.transform='translateY('+g.dy+'px)'});
 function up(){if(!g)return;var sh=g.sh,v=g.dy/Math.max(1,Date.now()-g.t);sh.style.transition='transform .45s var(--sp)';if(g.dy>110||v>.6){sh.style.transition='transform .22s ease-in';sh.style.transform='translateY(110%)';var sc=sh.closest('.scrim');setTimeout(function(){if(sc)sc.click()},170)}else{sh.style.transform='none'}g=null}
 document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);
 })();
 window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
 /* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
+/* крупный интерфейс на больших экранах: масштаб по высоте окна, не выше 1,5 */
+function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32-(document.body.classList.contains('clean')?0:328))/390);z=Math.max(1,Math.round(z*100)/100)}
+ if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'))}}
+window.addEventListener('resize',fitZoom);
 /* панель: по умолчанию видна; #clean в адресе или прошлый выбор скрывают её */
 (function(){var h=/github\.io$/.test(location.hostname),pv=null;try{pv=localStorage.getItem('lz-panel')}catch(e){}if(pv)h=pv==='hide';if(location.hash==='#clean')h=true;if(location.hash==='#panel')h=false;if(h)demo('panel:hide')})();
+fitZoom();
 })();
 </script>

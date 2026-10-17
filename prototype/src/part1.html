@@ -110,8 +110,8 @@ body.clean .panel{display:none}
 .seg.wrap{flex-wrap:wrap}
 .seg.wrap button{flex:1 0 auto}
 .dirnote{font-size:12px;line-height:20px;color:var(--text2);margin:0}
-.phone-wrap{flex:0 1 390px;width:390px;max-width:100%;min-width:0}
-.phone{position:relative;width:100%;height:min(844px,calc(100dvh - 48px));min-height:640px;border:1px solid var(--line);border-radius:32px;overflow:hidden;background:var(--page);color:var(--text);box-shadow:var(--shadow);font-family:var(--font)}
+.phone-wrap{flex:0 1 390px;width:390px;max-width:100%;min-width:0;zoom:var(--z,1)}
+.phone{position:relative;width:100%;height:min(844px,calc((100dvh - 48px) / var(--z,1)));min-height:640px;border:1px solid var(--line);border-radius:32px;overflow:hidden;background:var(--page);color:var(--text);box-shadow:var(--shadow);font-family:var(--font)}
 @media (max-width:700px){.panel{flex-basis:100%;width:100%}}
 
 .num{font-family:var(--fn);font-variant-numeric:tabular-nums}
