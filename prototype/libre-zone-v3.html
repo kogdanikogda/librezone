@@ -89,6 +89,12 @@ button,input{font-family:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .stage{display:flex;gap:28px;justify-content:center;align-items:flex-start;flex-wrap:wrap;max-width:940px;margin:0 auto}
+/* сервисная панель скрывается: для показа важен только интерфейс */
+.ptoggle{position:fixed;top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));z-index:50;display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text2);font-size:13px;line-height:20px;font-weight:600;box-shadow:var(--shadow);cursor:pointer}
+.ptoggle:hover{color:var(--brand);border-color:var(--brand)}
+body.clean .ptoggle{opacity:.55}body.clean .ptoggle:hover{opacity:1}
+body.clean .panel{display:none}
+@media (max-width:700px){.ptoggle{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px))}}
 .panel{flex:0 0 300px;width:300px;display:flex;flex-direction:column;gap:16px;min-width:0}
 .panel h1{font-size:20px;line-height:28px;font-weight:600;margin:0}
 .panel p{margin:0;color:var(--text2)}
@@ -781,6 +787,7 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
 .nempty{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:32px 16px;color:var(--text2)}.nempty b{color:var(--text)}
 </style>
 
+<button class="ptoggle" id="ptoggle" data-demo="panel:toggle" type="button" aria-pressed="false">Скрыть панель</button>
 <main class="stage">
   <aside class="panel" aria-label="Управление прототипом">
     <div class="group">
@@ -1525,6 +1532,7 @@ if(mq){if(mq.addEventListener)mq.addEventListener('change',applyMode);else if(mq
 function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if(n)n.textContent=DIRS[v];pressed('dir',v)}
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
+ if(k==='panel'){var cl=v==='toggle'?!document.body.classList.contains('clean'):v==='hide';document.body.classList.toggle('clean',cl);var tb=$('#ptoggle');if(tb){tb.textContent=cl?'Показать панель':'Скрыть панель';tb.setAttribute('aria-pressed',String(cl))}try{localStorage.setItem('lz-panel',cl?'hide':'show')}catch(e){}return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
  if(k==='pal'){$('#phone').setAttribute('data-pal',v);pressed('pal',v);if(v!=='aurora')setDir('a');return}
@@ -1569,5 +1577,7 @@ document.addEventListener('pointerup',up);document.addEventListener('pointercanc
 window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
 /* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
+/* панель: по умолчанию видна; #clean в адресе или прошлый выбор скрывают её */
+(function(){var h=/github\.io$/.test(location.hostname),pv=null;try{pv=localStorage.getItem('lz-panel')}catch(e){}if(pv)h=pv==='hide';if(location.hash==='#clean')h=true;if(location.hash==='#panel')h=false;if(h)demo('panel:hide')})();
 })();
 </script>

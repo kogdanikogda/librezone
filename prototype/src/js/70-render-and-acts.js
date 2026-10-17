@@ -216,6 +216,7 @@ if(mq){if(mq.addEventListener)mq.addEventListener('change',applyMode);else if(mq
 function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if(n)n.textContent=DIRS[v];pressed('dir',v)}
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
+ if(k==='panel'){var cl=v==='toggle'?!document.body.classList.contains('clean'):v==='hide';document.body.classList.toggle('clean',cl);var tb=$('#ptoggle');if(tb){tb.textContent=cl?'Показать панель':'Скрыть панель';tb.setAttribute('aria-pressed',String(cl))}try{localStorage.setItem('lz-panel',cl?'hide':'show')}catch(e){}return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
  if(k==='pal'){$('#phone').setAttribute('data-pal',v);pressed('pal',v);if(v!=='aurora')setDir('a');return}
@@ -260,5 +261,7 @@ document.addEventListener('pointerup',up);document.addEventListener('pointercanc
 window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
 /* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
+/* панель: по умолчанию видна; #clean в адресе или прошлый выбор скрывают её */
+(function(){var h=/github\.io$/.test(location.hostname),pv=null;try{pv=localStorage.getItem('lz-panel')}catch(e){}if(pv)h=pv==='hide';if(location.hash==='#clean')h=true;if(location.hash==='#panel')h=false;if(h)demo('panel:hide')})();
 })();
 </script>
