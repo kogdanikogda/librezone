@@ -1029,7 +1029,7 @@ function calcHTML(){
    '<div class="crow"><div class="cl"><span class="lbl">Отдаю</span><span class="amt num">'+sideStr('give')+'</span></div>'+curPill(giveC())+'</div>'+
    '<div class="divider"><button class="swapbtn" data-act="swap" aria-label="Поменять местами">'+ic('swapv',20)+'</button></div>'+
    '<div class="crow"><div class="cl"><span class="lbl">Получаю</span><span class="amt num">'+sideStr('get')+'</span></div>'+curPill(getC())+'</div>'+
-   '<div class="rateline"><span>Курс <b class="num">'+rateStr(cc)+'</b></span><span class="badge">'+ic('checkb',12)+'с комиссией</span></div>'+
+   '<div class="rateline"><span><b class="num">'+rateStr(cc)+'</b></span><span class="badge">'+ic('checkb',12)+'с учётом комиссии</span></div>'+
   '</div>'+
   '<div class="amtgrp"><div class="ghead"><b>Сумма в рублях</b><span>'+ic('clock',12)+'время ожидания</span></div>'+chipsHTML()+etaHTML()+'</div>'+
   '<button class="btn calcbtn" data-act="home-continue"'+(S.amount==null?' disabled':'')+'>Продолжить</button></section>'}
