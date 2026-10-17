@@ -33,7 +33,7 @@ function applyFrame(n,o){
  if(o.op)n.opacity=o.op;
  n.clipsContent=!!o.clip;
 }
-async function applyFx(n,o){if(o.fx&&ES[o.fx])await n.setEffectStyleIdAsync(ES[o.fx].id)}
+async function applyFx(n,o){if(o.fx&&ES[o.fx]){await n.setEffectStyleIdAsync(ES[o.fx].id);if('clipsContent' in n&&ES[o.fx].effects.some(e=>e.spread))n.clipsContent=true}}
 function setLayout(n,o){n.layoutMode=o.L==='H'?'HORIZONTAL':'VERTICAL';const p=o.pad||[0,0,0,0];bindNum(n,'paddingTop',p[0],'s');bindNum(n,'paddingRight',p[1],'s');bindNum(n,'paddingBottom',p[2],'s');bindNum(n,'paddingLeft',p[3],'s');
  if(o.pa==='S')n.primaryAxisAlignItems='SPACE_BETWEEN';else{n.primaryAxisAlignItems=PA[o.pa||'N'];bindNum(n,'itemSpacing',Math.max(0,o.gap||0),'s')}
  n.counterAxisAlignItems=(o.ca==='B'&&n.layoutMode!=='HORIZONTAL')?'MIN':CA[o.ca||'N'];
