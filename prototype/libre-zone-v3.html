@@ -1495,6 +1495,7 @@ if(k==='d'){demoAct(v);return}
  if(k==='logout'){S.user=null;S.menu=false;S.modal=null;go('home');toast('Вы вышли из аккаунта');return}
  if(k==='lclose'){S.login=null;renderLayer();return}
  if(k==='lcancel'){S.login=null;renderLayer();return}
+ if(!S.login&&/^l(start|phone|tg|code|check|finish|resend|cancel)$/.test(k))return;/* кнопка закрывающейся шторки входа */
  if(k==='lstart'){S.login.step='start';renderLayer();return}
  if(k==='lphone'){S.login.step='phone';renderLayer();return}
  if(k==='ltg'){S.login.step='tg';renderLayer();setTimeout(function(){if(S.login&&S.login.step==='tg'){S.login.phone='+7 937 421-45-13';S.login.step='reg';renderLayer()}},1300);return}
