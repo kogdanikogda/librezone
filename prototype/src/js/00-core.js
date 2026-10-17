@@ -89,7 +89,9 @@ function cdot(code,s){s=s||24;var c=CUR[code],n=NETOF[code],b=Math.max(14,Math.r
  var coin='<svg class="ic" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" aria-hidden="true">'+COINART[c.coin]+'</svg>';
  var badge=n?'<span class="nb" style="width:'+b+'px;height:'+b+'px"><svg width="'+Math.round(b*(n==='ton'?1:.62))+'" height="'+Math.round(b*(n==='ton'?1:.62))+'" viewBox="0 0 60 60" aria-hidden="true">'+NET[n].replace('id="solg"','id="solg'+s+'"').replace('url(#solg)','url(#solg'+s+')')+'</svg></span>':'';
  return '<span class="tok'+(n?' hasnet':'')+'" title="'+esc(c.coin+' · сеть '+c.net)+'">'+coin+badge+'</span>'}
-function dchips(title,arr){return '<div class="demo"><b>'+title+'</b><div class="dc">'+arr.map(function(x){return '<button class="dbtn" data-act="d:'+x[1]+'">'+x[0]+'</button>'}).join('')+'</div></div>'}
+/* демо-кнопки не показываются в интерфейсе: собираются здесь и выводятся в сервисной панели рядом с телефоном */
+var DEMO=[];
+function dchips(title,arr){DEMO.push([title,arr]);return ''}
 function rid(){return Math.random().toString(36).slice(2,11).toUpperCase()}
 function nowStr(){var x=new Date();return pad(x.getDate())+'.'+pad(x.getMonth()+1)+'.'+x.getFullYear()+', '+pad(x.getHours())+':'+pad(x.getMinutes())}
 function bars(n){return '<span class="bars" aria-hidden="true"><i class="'+(n>=1?'on':'')+'"></i><i class="'+(n>=2?'on':'')+'"></i><i class="'+(n>=3?'on':'')+'"></i></span>'}

@@ -62,7 +62,6 @@ var DOCS=[
    ['Запрещено',['Обмен средств, полученных незаконно, обмен в интересах третьих лиц, дробление сумм ради обхода проверок.']]]}];
 function docsHTML(){
  var h='<button class="back" data-act="docback">'+ic('chevl',18)+'Назад</button><h2 class="page">Правила и политика</h2>'+
-  '<div class="demo docnote">'+ic('info',16)+'<span>Тексты — образец для прототипа. Финальную редакцию готовит юрист.</span></div>'+
   '<div class="doclist">'+DOCS.map(function(d){return '<button class="dcard" data-act="doc:'+d.id+'"><span class="wi2">'+ic(d.icon,20)+'</span><span class="g"><b>'+d.t+'</b><small>'+d.d+'</small><em>Редакция от 14.10.2026</em></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button>'}).join('')+'</div>'+
   '<section class="card rows"><button class="row tgrow" data-act="support:">'+ic('send',20,'#2AABEE')+'<span class="g">Остались вопросы?<small>Напишите в чат поддержки</small></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button></section>';
  return nav(false)+'<div class="content" id="scroller">'+h+'</div>'}

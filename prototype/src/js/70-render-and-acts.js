@@ -7,7 +7,7 @@ function alignIcons(root){if(!root)return;[].forEach.call(root.querySelectorAll(
 /* сумма в калькуляторе не заходит под кнопку смены направления: длинное число уменьшается */
 function fitAmts(){[].forEach.call(document.querySelectorAll('#app .crow .amt'),function(a){a.style.fontSize='';var fs=parseFloat(getComputedStyle(a).fontSize),min=17;while(a.scrollWidth>a.clientWidth+0.5&&fs>min){fs-=1;a.style.fontSize=fs+'px'}})}
 function polish(){var a=$('#app'),l=$('#layer');typoTree(a);typoTree(l);alignIcons(a);alignIcons(l);fitAmts()}
-function render(){
+function render(){DEMO=[];
  var h=S.screen==='docs'?docsHTML():S.screen==='doc'?docHTML():S.screen==='new'?newHTML():S.screen==='order'?orderHTML():S.screen==='orders'?ordersHTML():S.screen==='profile'?profileHTML():homeHTML();
  var of=document.querySelector('#app .filters'),fl=of?of.scrollLeft:0;
  var app=$('#app'),old=app.querySelector('#scroller'),top=old?old.scrollTop:0,same=app.dataset.screen===S.screen+S.step;
@@ -19,9 +19,11 @@ function render(){
   c.classList.add('en','en-'+dr);[].slice.call(c.children,0,9).forEach(function(e,i){e.style.setProperty('--i',i)});
   app.classList.add('switching');clearTimeout(app._sw);app._sw=setTimeout(function(){app.classList.remove('switching')},700)}
  app.dataset.inited=1;app.dataset.psc=S.screen;app.dataset.pst=S.step;
- renderLayer();sync();polish();
+ renderLayer();sync();polish();demoPanel();
  var nf2=app.querySelector('.filters');if(nf2){nf2.scrollLeft=fl;var a=nf2.querySelector('[aria-pressed="true"]');if(a){var pl=16,l=a.offsetLeft-nf2.offsetLeft,r=l+a.offsetWidth,vl=nf2.scrollLeft,vr=vl+nf2.clientWidth,t=null;if(l-pl<vl)t=l-pl;else if(r+pl>vr)t=r+pl-nf2.clientWidth;if(t!==null)nf2.scrollTo({left:Math.max(0,t),behavior:'smooth'})}}
 }
+function demoPanel(){var c=$('#dctx');if(!c)return;
+ c.hidden=!DEMO.length;c.innerHTML=DEMO.map(function(g){return '<div class="group"><span>'+esc(g[0])+'</span><div class="dc">'+g[1].map(function(x){return '<button class="dbtn" type="button" data-act="d:'+x[1]+'">'+esc(x[0])+'</button>'}).join('')+'</div></div>'}).join('');typoTree(c)}
 function renderLayer(){var l=$('#layer'),lh=layerHTML();
  if(!lh&&l.firstElementChild&&!l._closing){l._closing=1;var o=l.firstElementChild;o.classList.add('out');setTimeout(function(){l._closing=0;if(!layerHTML()){l.innerHTML='';l.dataset.sig=''}},230);return}
  var sg=lh.slice(0,150);l.classList.toggle('still',!!lh&&l.dataset.sig===sg&&!l._closing);l.dataset.sig=lh?sg:'';l._closing=0;
@@ -226,7 +228,6 @@ function demo(cmd){
  if(k==='why'){WHY=v;pressed('why',v);if(S.screen!=='home')demo('go:home');else render();setTimeout(function(){var h=[].filter.call(document.querySelectorAll('h3.sec'),function(x){return /Почему/.test(x.textContent)})[0],sc=$('#scroller');if(h&&sc)sc.scrollTop=h.offsetTop-70},30);return}
  if(k==='tagst'){TAGSTYLE=v;pressed('tagst',v);render();return}
  if(k==='flat'){$('#phone').classList.toggle('flat',v==='on');pressed('flat',v);return}
- if(k==='hints'){$('#phone').classList.toggle('nodemo',v==='off');pressed('hints',v);return}
  if(k==='theme'){var r=document.documentElement;if(v==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',v);pressed('theme',v);applyMode();return}
  if(k==='mode'){S.working=v==='on';pressed('mode',v);if(S.screen==='home')render();return}
  if(k==='speed'){speedKeep=+v;pressed('speed',v);return}

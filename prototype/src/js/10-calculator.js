@@ -43,7 +43,7 @@ function homeHTML(){
  var how=[['01','Выберите сумму','Из фиксированных'],['02','Укажите реквизиты','Банк и адрес'],['03','Получите обмен','Следите за статусом']];
  var whys=WHYS;
  var body='<section class="hero"><h1>Криптообмены с <em>фиксированными</em> суммами</h1><p>Обменивайте криптовалюту по понятным и честным правилам. Просто. Быстро. Безопасно.</p>'+orbit()+'</section>'+calcHTML()+
-  '<div style="margin:12px 16px 0">'+(S.working?dchips('Демо-сценарии',[['Покупка USDT','calc:buy'],['Продажа USDT','calc:sell'],['BTC на 50 000 ₽','calc:btc'],['ETH на 10 000 ₽','calc:eth'],['Вне часов','calc:off']]):dchips('Демо-сценарии',[['Включить обмены','calc:on']]))+'</div>'+
+  (S.working?dchips('Демо-сценарии',[['Покупка USDT','calc:buy'],['Продажа USDT','calc:sell'],['BTC на 50 000 ₽','calc:btc'],['ETH на 10 000 ₽','calc:eth'],['Вне часов','calc:off']]):dchips('Демо-сценарии',[['Включить обмены','calc:on']]))+
   hoursHTML()+
   '<h3 class="sec">Для любых задач</h3><div class="tiles">'+tiles.map(function(t){return '<div class="tile"><span class="ti">'+ic(t[0],20)+'</span><b>'+t[1]+'</b><span>'+t[2]+'</span></div>'}).join('')+'</div>'+secHTML()+
   '<h3 class="sec">Почему Libre.zone?</h3>'+whyHTML()+
