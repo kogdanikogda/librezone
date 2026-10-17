@@ -266,7 +266,7 @@ window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
 /* крупный интерфейс на больших экранах: масштаб по высоте окна, не выше 1,5 */
 function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32-(document.body.classList.contains('clean')?0:328))/390);z=Math.max(1,Math.round(z*100)/100)}
- if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'))}}
+ if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
 /* панель: по умолчанию видна; #clean в адресе или прошлый выбор скрывают её */
 (function(){var h=/github\.io$/.test(location.hostname),pv=null;try{pv=localStorage.getItem('lz-panel')}catch(e){}if(pv)h=pv==='hide';if(location.hash==='#clean')h=true;if(location.hash==='#panel')h=false;if(h)demo('panel:hide')})();

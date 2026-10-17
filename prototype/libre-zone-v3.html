@@ -223,7 +223,13 @@ h3.sec{margin:36px 16px 16px;font-family:var(--fd);font-size:20px;line-height:28
 .partner .top{display:flex;justify-content:space-between;align-items:center}
 .partner .pn{font-family:var(--fn);font-size:12px;font-weight:600;color:var(--brand)}
 .partner .go{width:32px;height:32px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
-.partner b{display:block;font-family:var(--fd);font-size:19px;line-height:24px;font-weight:700;letter-spacing:-.02em;overflow-wrap:anywhere}
+.partner b{display:block;font-family:var(--fd);font-size:19px;line-height:24px;font-weight:700;letter-spacing:-.02em;overflow-wrap:normal}
+.partner{container-type:inline-size}
+/* название партнёра не рвётся: на узких карточках шрифт ступенчато уменьшается */
+@container (max-width:121px){.partner b{font-size:18px}}
+@container (max-width:114px){.partner b{font-size:17px}}
+@container (max-width:107px){.partner b{font-size:16px}}
+@container (max-width:101px){.partner b{font-size:15px}}
 .partner small{display:block;margin-top:4px;font-size:12px;line-height:16px;color:var(--text2)}
 .partner:hover{border-color:var(--brand)}
 .foot{padding:32px 20px 28px;color:var(--text3);font-size:12px;line-height:20px;text-align:center}
@@ -592,6 +598,11 @@ h3.grp{margin:8px 4px -6px;font-size:12px;line-height:16px;font-weight:600;lette
 .dcard{display:flex;align-items:center;gap:12px;width:100%;padding:16px;border:0;border-radius:var(--r);background:var(--surface);box-shadow:var(--elev,none);text-align:left;color:var(--text)}
 .phone:not(.flat) .dcard{border:1px solid var(--line)}
 .dcard .g{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.dcard .g{container-type:inline-size}
+@container (max-width:177px){.dcard .g b{font-size:15px}}
+@container (max-width:166px){.dcard .g b{font-size:14px}}
+@container (max-width:155px){.dcard .g b{font-size:13px}}
+@container (max-width:144px){.dcard .g b{font-size:12px}}
 .dcard b{font-family:var(--fd);font-size:16px;line-height:20px;font-weight:700}
 .dcard small{font-size:13px;line-height:20px;color:var(--text2)}
 .dcard em{font-style:normal;font-size:12px;line-height:16px;color:var(--text3);margin-top:4px}
@@ -838,7 +849,7 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
       </div>
     </div>
     <p class="note">Тексты документов — образец для прототипа, финальную редакцию готовит юрист. Состав экранов и бизнес-логика взяты из принятых макетов Figma. Банки, суммы, адреса и реквизиты вымышленные, значки банков заменены буквами. Время обмена по размеру очереди (≈ 3, 8, 20 минут) — гипотеза для проверки на данных заказчика. Правила, FAQ и инструкции в прототип не входят.</p>
-    <p class="note" id="bld">Сборка: 17.10 22:27 МСК</p>
+    <p class="note" id="bld">Сборка: 17.10 22:34 МСК</p>
   </aside>
   <div class="phone-wrap">
     <div class="phone flat" id="phone" data-dir="a" data-mode="light" data-pal="indigo" data-hero="mesh">
@@ -1307,8 +1318,21 @@ function typo(s,last){if(!s||s.length<2)return s;
  if(last&&s.split(RX_SP).length>=5){var i=Math.max(s.lastIndexOf(' '),s.lastIndexOf(NB));if(i>0&&s.charAt(i)===' '){var l=s.slice(i+1),pv=s.slice(0,i).split(RX_SP).pop();if(l.length<=12&&l.length+pv.length<=18)s=s.slice(0,i)+NB+l}}
  return s}
 function typoOk(n){var p=n.parentNode;return !!p&&!/^(SCRIPT|STYLE|TEXTAREA|CODE|INPUT|TITLE)$/.test(p.nodeName)&&!(p.closest&&p.closest('.mono,[data-notypo]'))}
-function typoNode(n){if(n.nodeValue.trim().length<2||!typoOk(n))return;var v=typo(n.nodeValue,!n.nextSibling);if(v!==n.nodeValue)n.nodeValue=v}
-function typoTree(root){if(!root)return;if(root.nodeType===3){typoNode(root);return}var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,list=[];while((n=w.nextNode()))list.push(n);list.forEach(typoNode)}
+function typoNode(n){if(n._fit===n.nodeValue)return;if(n.nodeValue.trim().length<2||!typoOk(n))return;var v=typo(n.nodeValue,!n.nextSibling);if(v!==n.nodeValue)n.nodeValue=v;n._src=v}
+/* склейка неразрывными пробелами не должна делать «слово» шире блока: иначе браузер рвёт его посреди слова.
+   Если склеенный кусок не помещается, лишние неразрывные пробелы возвращаются в обычные (при расширении окна склейка возвращается) */
+var _cv=null;
+function textW(str,cs){if(!_cv)_cv=document.createElement('canvas').getContext('2d');_cv.font=cs.fontStyle+' '+cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;var ls=parseFloat(cs.letterSpacing)||0;return _cv.measureText(str).width+ls*str.length}
+function fitNode(n){if(!n._src&&n.nodeValue.indexOf(NB)<0)return;if(!typoOk(n))return;
+ var src=(n._src&&(n.nodeValue===n._src||n.nodeValue===n._fit))?n._src:n.nodeValue;if(src.indexOf(NB)<0&&src.indexOf(TH)<0)return;
+ var el=n.parentElement;while(el&&getComputedStyle(el).display==='inline')el=el.parentElement;if(!el||!el.clientWidth)return;
+ var ecs=getComputedStyle(el),avail=el.clientWidth-(parseFloat(ecs.paddingLeft)||0)-(parseFloat(ecs.paddingRight)||0);if(avail<=0)return;
+ var cs=getComputedStyle(n.parentElement),out=src.split(' ').map(function(ch){if(ch.length<6||ch.indexOf(NB)<0||textW(ch,cs)<=avail+0.5)return ch;
+  var ws=ch.split(NB),cur=ws[0],res='';for(var k=1;k<ws.length;k++){var cand=cur+NB+ws[k];if(textW(cand,cs)<=avail+0.5)cur=cand;else{res+=cur+' ';cur=ws[k]}}return res+cur}).join(' ');
+ n._src=src;if(out!==n.nodeValue){n._fit=out;n.nodeValue=out}else if(out===src)n._fit=null}
+function fitTree(root){if(!root)return;if(root.nodeType===3){fitNode(root);return}var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,list=[];while((n=w.nextNode()))list.push(n);list.forEach(fitNode)}
+function typoTree(root){if(!root)return;if(root.nodeType===3){typoNode(root);fitNode(root);return}var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,list=[];while((n=w.nextNode()))list.push(n);list.forEach(typoNode);list.forEach(fitNode)}
+window.addEventListener('resize',function(){fitTree(document.querySelector('#phone'))});
 /* типограф следит за DOM: любой новый или изменённый текст (подсказки, таймеры, тосты) обрабатывается сразу */
 (function(){var q=[],f=0;function run(){f=0;var a=q;q=[];a.forEach(typoTree)}
  new MutationObserver(function(ms){ms.forEach(function(m){if(m.type==='characterData')q.push(m.target);else[].forEach.call(m.addedNodes,function(n){q.push(n)})});if(!f){f=1;requestAnimationFrame(run)}}).observe(document.body,{childList:true,subtree:true,characterData:true});
@@ -1581,7 +1605,7 @@ window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
 /* крупный интерфейс на больших экранах: масштаб по высоте окна, не выше 1,5 */
 function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32-(document.body.classList.contains('clean')?0:328))/390);z=Math.max(1,Math.round(z*100)/100)}
- if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'))}}
+ if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
 /* панель: по умолчанию видна; #clean в адресе или прошлый выбор скрывают её */
 (function(){var h=/github\.io$/.test(location.hostname),pv=null;try{pv=localStorage.getItem('lz-panel')}catch(e){}if(pv)h=pv==='hide';if(location.hash==='#clean')h=true;if(location.hash==='#panel')h=false;if(h)demo('panel:hide')})();

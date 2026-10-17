@@ -223,7 +223,13 @@ h3.sec{margin:36px 16px 16px;font-family:var(--fd);font-size:20px;line-height:28
 .partner .top{display:flex;justify-content:space-between;align-items:center}
 .partner .pn{font-family:var(--fn);font-size:12px;font-weight:600;color:var(--brand)}
 .partner .go{width:32px;height:32px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
-.partner b{display:block;font-family:var(--fd);font-size:19px;line-height:24px;font-weight:700;letter-spacing:-.02em;overflow-wrap:anywhere}
+.partner b{display:block;font-family:var(--fd);font-size:19px;line-height:24px;font-weight:700;letter-spacing:-.02em;overflow-wrap:normal}
+.partner{container-type:inline-size}
+/* название партнёра не рвётся: на узких карточках шрифт ступенчато уменьшается */
+@container (max-width:121px){.partner b{font-size:18px}}
+@container (max-width:114px){.partner b{font-size:17px}}
+@container (max-width:107px){.partner b{font-size:16px}}
+@container (max-width:101px){.partner b{font-size:15px}}
 .partner small{display:block;margin-top:4px;font-size:12px;line-height:16px;color:var(--text2)}
 .partner:hover{border-color:var(--brand)}
 .foot{padding:32px 20px 28px;color:var(--text3);font-size:12px;line-height:20px;text-align:center}
@@ -592,6 +598,11 @@ h3.grp{margin:8px 4px -6px;font-size:12px;line-height:16px;font-weight:600;lette
 .dcard{display:flex;align-items:center;gap:12px;width:100%;padding:16px;border:0;border-radius:var(--r);background:var(--surface);box-shadow:var(--elev,none);text-align:left;color:var(--text)}
 .phone:not(.flat) .dcard{border:1px solid var(--line)}
 .dcard .g{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.dcard .g{container-type:inline-size}
+@container (max-width:177px){.dcard .g b{font-size:15px}}
+@container (max-width:166px){.dcard .g b{font-size:14px}}
+@container (max-width:155px){.dcard .g b{font-size:13px}}
+@container (max-width:144px){.dcard .g b{font-size:12px}}
 .dcard b{font-family:var(--fd);font-size:16px;line-height:20px;font-weight:700}
 .dcard small{font-size:13px;line-height:20px;color:var(--text2)}
 .dcard em{font-style:normal;font-size:12px;line-height:16px;color:var(--text3);margin-top:4px}
