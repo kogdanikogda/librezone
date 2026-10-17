@@ -691,7 +691,9 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
 .sumstrip .link{background:var(--surface);border-color:transparent;color:var(--brand)}
 .timer.warn{--tr:#D92D20;--trb:#FDECEA;background:var(--trb)}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .timer.warn{--tr:#FF6B5E;--trb:#2E1618}}:root[data-theme="dark"] .timer.warn,.phone[data-mode="dark"] .timer.warn{--tr:#FF6B5E;--trb:#2E1618}.timer.warn strong,.timer.warn .ic{color:var(--tr)}.timer.warn .bar{background:color-mix(in srgb,var(--tr) 20%,transparent)}.timer.warn .bar i,.timer.warn [class*="bar"] i{background:var(--tr)}
 .modal.mi{text-align:center;align-items:center;padding:24px 16px 16px;gap:8px}
-.modal.mi .btn{width:100%}.modal.mi h3{margin-top:4px;text-wrap:balance}
+.modal.mi .btn{width:100%}.modal.mi h3{margin-top:8px;text-wrap:balance}
+/* воздух между текстом и кнопками в окнах: текст → кнопка 24, кнопка → кнопка 8 */
+.modal.mi p+.btn,.modal.refer p+.btn{margin-top:16px}.sheet p+.btn{margin-top:12px}.modal.refer .logo+h3{margin-top:8px}
 .mic{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;--c:var(--brand);--cb:var(--brand-soft);color:var(--c);background:var(--cb);box-shadow:0 0 0 8px color-mix(in srgb,var(--cb) 45%,transparent);margin-bottom:8px}
 .mic.err{--c:#D92D20;--cb:#FDECEA}.mic.warn{--c:#B45F06;--cb:#FFF0D6}
 .phone[data-mode="dark"] .mic.err{--c:#FF6B5E;--cb:#2E1618}.phone[data-mode="dark"] .mic.warn{--c:#F2B552;--cb:#2B2211}
