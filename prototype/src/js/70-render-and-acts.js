@@ -266,7 +266,7 @@ window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('
 /* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
 /* крупный интерфейс на больших экранах: масштаб по высоте окна, не выше 1,5 */
-function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32)/390);z=Math.max(1,Math.round(z*100)/100)}
+function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=1;if(W>700){z=Math.min(Math.max(H/760,1),1.5,(W-32)/414);z=Math.max(1,Math.round(z*100)/100)}
  if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
 /* сервисный блок — drawer справа; #panel в адресе открывает его */
