@@ -38,6 +38,5 @@ function moChip(sn){if(!moOn()||!sn)return;var c=moCfg(),chips=[].slice.call(doc
   if(c.live)moAnim(chips[ni],[{transform:'scale(.82)'},{transform:'scale(1.14) rotate(-2deg)',offset:.4},{transform:'scale(.97) rotate(1deg)',offset:.7},{transform:'scale(1)'}],{duration:c.d,easing:'ease-out'});
   if(c.live&&sn.idx>=0&&chips[sn.idx])moAnim(chips[sn.idx],[{transform:'scale(.9)'},{transform:'scale(1)'}],{duration:c.d,easing:c.e})}
  var eta=document.querySelector('#app .eta');if(eta)[].forEach.call(eta.children,function(k){moAnim(k,[{opacity:0},{opacity:1}],{duration:c.live?420:c.d,easing:'ease-out'})});
- if(c.live)moAnim(eta,[{opacity:0,transform:'translateY(28px) scale(.94)'},{opacity:1,transform:'none'}],{duration:c.d,easing:c.e});else moAnim(eta,[{opacity:0},{opacity:1}],{duration:c.d,easing:c.e});
  if(sn.idx<0){var b=document.querySelector('#app .calcbtn');if(c.live)moAnim(b,[{opacity:.4,transform:'scale(.9)'},{opacity:1,transform:'scale(1.06)',offset:.55},{opacity:1,transform:'none'}],{duration:c.d,easing:c.e});else moAnim(b,[{opacity:.5},{opacity:1}],{duration:c.d,easing:c.e})}
  moCount(sn)}
