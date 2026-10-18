@@ -149,12 +149,12 @@ document.addEventListener('click',function(e){
  if(k==='partner'){toast('Откроется сайт партнёра: '+v);return}
  if(k==='sheet'){S.sheet=v;S.q='';renderLayer();return}
  if(k==='close'){S.sheet=null;S.modal=null;renderLayer();return}
- if(k==='coin'){S.coin=v;S.sheet=null;if(S.dir==='buy')S.addr='';render();return}
+ if(k==='coin'){var sn=moSnap();S.coin=v;S.sheet=null;if(S.dir==='buy')S.addr='';render();moCount(sn);return}
  if(k==='bank'){S.bank=v;S.sheet=null;S.q='';if(S.dir==='sell')S.addr='';render();return}
- if(k==='chip'){S.amount=CHIPS[+v];render();return}
+ if(k==='chip'){var sn=moSnap();S.amount=CHIPS[+v];render();moChip(sn);return}
  if(k==='sdot'){var w=$('#ssl');if(w){var it=w.children[+v];w.scrollTo({left:it.offsetLeft-w.offsetLeft-parseFloat(getComputedStyle(w).paddingLeft||0),behavior:'smooth'})}return}
  if(k==='wdot'){var w=$('#wsl');if(w){var it=w.children[+v];w.scrollTo({left:it.offsetLeft-w.offsetLeft-parseFloat(getComputedStyle(w).paddingLeft||0),behavior:'smooth'})}return}
- if(k==='swap'){S.dir=S.dir==='buy'?'sell':'buy';resetReq();render();var sb=$('.swapbtn');if(sb){sb.classList.add('rot')}return}
+ if(k==='swap'){var sn=moSnap();S.dir=S.dir==='buy'?'sell':'buy';resetReq();render();var sb=$('.swapbtn');if(sb&&moOn()){sb.classList.add('rot')}moSwap(sn);return}
  if(k==='home-continue'){if(!S.user){startLogin();return}S.step=1;go('new');return}
 if(k==='d'){demoAct(v);return}
  if(k==='fill'){if(!S.bank)S.bank='sber';S.addr=S.dir==='buy'?CUR[S.coin].ex:(bank(S.bank).link?'5536 9141 2345 6789':'+7 903 556-44-83');render();return}
@@ -222,6 +222,7 @@ function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
  if(k==='panel'){var op=v==='toggle'?!document.body.classList.contains('dopen'):v==='show';document.body.classList.toggle('dopen',op);var tb=$('#ptoggle');if(tb){tb.setAttribute('aria-expanded',String(op));tb.setAttribute('aria-label',op?'Закрыть меню прототипа':'Открыть меню прототипа')}return}
+ if(k==='motion'){MOTION=v;pressed('motion',v);try{localStorage.setItem('lz-motion',v)}catch(e){}return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
  if(k==='pal'){$('#phone').setAttribute('data-pal',v);pressed('pal',v);if(v!=='aurora')setDir('a');return}
@@ -269,6 +270,7 @@ demo('theme:'+(mq&&mq.matches?'dark':'light'));
 function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=Math.min(H/760,1.5,(W-24)/414);z=Math.max(.5,Math.round(z*100)/100);
  if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
+(function(){var m=null;try{m=localStorage.getItem('lz-motion')}catch(e){}if(m&&MO[m]||m==='off')demo('motion:'+m)})();
 /* сервисный блок — drawer справа; #panel в адресе открывает его */
 if(location.hash==='#panel')demo('panel:show');
 fitZoom();

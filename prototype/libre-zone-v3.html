@@ -819,6 +819,11 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
 <main class="stage">
   <aside class="panel" id="panel" aria-label="Управление прототипом">
     <div class="group" id="dctx" hidden aria-label="Сценарии экрана"></div>
+    <div class="group"><span>Анимации</span>
+      <div class="seg" role="group" aria-label="Анимации">
+        <button data-demo="motion:off" aria-pressed="false">Выкл</button><button data-demo="motion:soft" aria-pressed="false">Мягкие</button><button data-demo="motion:live" aria-pressed="true">Живые</button>
+      </div>
+    </div>
     <div class="group"><span>Тема</span>
       <div class="seg" role="group" aria-label="Тема">
         <button data-demo="theme:light" aria-pressed="true">Светлая</button><button data-demo="theme:dark" aria-pressed="false">Тёмная</button>
@@ -859,7 +864,7 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
         <button data-demo="reset">Начать заново</button>
       </div>
     </div>
-    <!-- Сборка: 18.10 12:09 МСК -->
+    <!-- Сборка: 18.10 23:10 МСК -->
   </aside>
   <div class="phone-wrap">
     <div class="phone flat" id="phone" data-dir="a" data-mode="light" data-pal="indigo" data-hero="mesh">
@@ -1348,6 +1353,38 @@ window.addEventListener('resize',function(){fitTree(document.querySelector('#pho
 (function(){var q=[],f=0;function run(){f=0;var a=q;q=[];a.forEach(typoTree)}
  new MutationObserver(function(ms){ms.forEach(function(m){if(m.type==='characterData')q.push(m.target);else[].forEach.call(m.addedNodes,function(n){q.push(n)})});if(!f){f=1;requestAnimationFrame(run)}}).observe(document.body,{childList:true,subtree:true,characterData:true});
  document.addEventListener('DOMContentLoaded',function(){typoTree(document.body)})})();
+/* ---------- переходы калькулятора: смена направления, выбор суммы, смена монеты ---------- */
+var MOTION='live';
+var MO={soft:{d:320,e:'cubic-bezier(.2,.8,.2,1)',pop:1.02,n:420},live:{d:620,e:'cubic-bezier(.34,1.56,.64,1)',pop:1.07,n:640}};
+function moOn(){return MOTION!=='off'&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)}
+function moCfg(){return MO[MOTION]||MO.soft}
+function moAnim(el,kf,o){if(el&&el.animate)try{el.animate(kf,o)}catch(e){}}
+function moNum(t){var v=parseFloat(String(t).replace(/[\s  ]/g,'').replace(',','.'));return isNaN(v)?0:v}
+/* снимок до перерисовки: позиции строк, тексты сумм, выбранная плитка */
+function moSnap(){var rows=[].slice.call(document.querySelectorAll('#app .pairbox .crow')),am=[].slice.call(document.querySelectorAll('#app .pairbox .amt'));
+ return {tops:rows.map(function(r){return r.getBoundingClientRect().top}),txt:am.map(function(a){return a.textContent}),idx:CHIPS.indexOf(S.amount)}}
+/* суммы плавно «досчитываются» от прошлого значения к новому */
+function moCount(sn){if(!moOn()||!sn)return;var c=moCfg();
+ [].forEach.call(document.querySelectorAll('#app .pairbox .amt'),function(el,i){
+  var to=el.textContent,a=moNum(sn.txt[i]),b=moNum(to);if(sn.txt[i]===undefined||a===b)return;
+  var m=/[,.](\d+)\s*$/.exec(to),dec=m?m[1].length:0,t0=performance.now();
+  (function f(t){var p=Math.min(1,(t-t0)/c.n),q=1-Math.pow(1-p,3);el.textContent=p>=1?to:nf(a+(b-a)*q,dec);if(p<1)requestAnimationFrame(f)})(t0)})}
+/* смена направления: строки обмениваются местами, кнопка поворачивается */
+function moSwap(sn){if(!moOn()||!sn)return;var c=moCfg(),rows=document.querySelectorAll('#app .pairbox .crow');if(rows.length<2||sn.tops.length<2)return;
+ var dy=sn.tops[1]-sn.tops[0];
+ [rows[0],rows[1]].forEach(function(r,i){var s=i===0?1:-1;
+  [].forEach.call(r.querySelectorAll('.amt,.curpill'),function(el){moAnim(el,[{transform:'translateY('+s*dy+'px)',opacity:.15},{opacity:1,offset:.45},{transform:'translateY(0)',opacity:1}],{duration:c.d,easing:c.e})})});
+ var sb=document.querySelector('.swapbtn');if(sb){sb.style.animationDuration=c.d+'ms'}}
+/* выбор суммы: плитка «переезжает», время обмена выезжает снизу, кнопка оживает */
+function moChip(sn){if(!moOn()||!sn)return;var c=moCfg(),chips=[].slice.call(document.querySelectorAll('#app .chip')),ni=CHIPS.indexOf(S.amount);
+ if(sn.idx>=0&&chips[sn.idx])chips[sn.idx].setAttribute('aria-pressed','true');
+ if(chips[ni])chips[ni].setAttribute('aria-pressed','false');
+ void document.body.offsetWidth;
+ if(sn.idx>=0&&chips[sn.idx])chips[sn.idx].setAttribute('aria-pressed','false');
+ if(chips[ni]){chips[ni].setAttribute('aria-pressed','true');moAnim(chips[ni],[{transform:'scale(.9)'},{transform:'scale('+c.pop+')',offset:.55},{transform:'scale(1)'}],{duration:c.d,easing:'ease-out'})}
+ var eta=document.querySelector('#app .eta');moAnim(eta,[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:c.d,easing:c.e});
+ if(sn.idx<0){var b=document.querySelector('#app .calcbtn');moAnim(b,[{opacity:.5,transform:'scale(.96)'},{opacity:1,transform:'scale('+c.pop+')',offset:.6},{opacity:1,transform:'none'}],{duration:c.d,easing:c.e})}
+ moCount(sn)}
 /* иконка рядом с текстом: по верхнему краю текста, при одной строке — по центру */
 var IA_SEL='.dbody h3,.dcard,.card.rows .row,.wrow,.why,.notebox,.warnbox,.okbox,.hours .hh,.notify,.check,.eta,.opt,.dsum li,.u,.docnote,.plate,.tg,.timer .row';
 var IA_SKIP=['n','ic','wi','wi2','hi','tok','sw','av','mini-copy','seg2','hstat','hst','tag','ptm','bul','dt','bdot','rubmark','ck'];
@@ -1499,12 +1536,12 @@ document.addEventListener('click',function(e){
  if(k==='partner'){toast('Откроется сайт партнёра: '+v);return}
  if(k==='sheet'){S.sheet=v;S.q='';renderLayer();return}
  if(k==='close'){S.sheet=null;S.modal=null;renderLayer();return}
- if(k==='coin'){S.coin=v;S.sheet=null;if(S.dir==='buy')S.addr='';render();return}
+ if(k==='coin'){var sn=moSnap();S.coin=v;S.sheet=null;if(S.dir==='buy')S.addr='';render();moCount(sn);return}
  if(k==='bank'){S.bank=v;S.sheet=null;S.q='';if(S.dir==='sell')S.addr='';render();return}
- if(k==='chip'){S.amount=CHIPS[+v];render();return}
+ if(k==='chip'){var sn=moSnap();S.amount=CHIPS[+v];render();moChip(sn);return}
  if(k==='sdot'){var w=$('#ssl');if(w){var it=w.children[+v];w.scrollTo({left:it.offsetLeft-w.offsetLeft-parseFloat(getComputedStyle(w).paddingLeft||0),behavior:'smooth'})}return}
  if(k==='wdot'){var w=$('#wsl');if(w){var it=w.children[+v];w.scrollTo({left:it.offsetLeft-w.offsetLeft-parseFloat(getComputedStyle(w).paddingLeft||0),behavior:'smooth'})}return}
- if(k==='swap'){S.dir=S.dir==='buy'?'sell':'buy';resetReq();render();var sb=$('.swapbtn');if(sb){sb.classList.add('rot')}return}
+ if(k==='swap'){var sn=moSnap();S.dir=S.dir==='buy'?'sell':'buy';resetReq();render();var sb=$('.swapbtn');if(sb&&moOn()){sb.classList.add('rot')}moSwap(sn);return}
  if(k==='home-continue'){if(!S.user){startLogin();return}S.step=1;go('new');return}
 if(k==='d'){demoAct(v);return}
  if(k==='fill'){if(!S.bank)S.bank='sber';S.addr=S.dir==='buy'?CUR[S.coin].ex:(bank(S.bank).link?'5536 9141 2345 6789':'+7 903 556-44-83');render();return}
@@ -1572,6 +1609,7 @@ function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
  if(k==='panel'){var op=v==='toggle'?!document.body.classList.contains('dopen'):v==='show';document.body.classList.toggle('dopen',op);var tb=$('#ptoggle');if(tb){tb.setAttribute('aria-expanded',String(op));tb.setAttribute('aria-label',op?'Закрыть меню прототипа':'Открыть меню прототипа')}return}
+ if(k==='motion'){MOTION=v;pressed('motion',v);try{localStorage.setItem('lz-motion',v)}catch(e){}return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
  if(k==='pal'){$('#phone').setAttribute('data-pal',v);pressed('pal',v);if(v!=='aurora')setDir('a');return}
@@ -1619,6 +1657,7 @@ demo('theme:'+(mq&&mq.matches?'dark':'light'));
 function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=Math.min(H/760,1.5,(W-24)/414);z=Math.max(.5,Math.round(z*100)/100);
  if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
+(function(){var m=null;try{m=localStorage.getItem('lz-motion')}catch(e){}if(m&&MO[m]||m==='off')demo('motion:'+m)})();
 /* сервисный блок — drawer справа; #panel в адресе открывает его */
 if(location.hash==='#panel')demo('panel:show');
 fitZoom();
