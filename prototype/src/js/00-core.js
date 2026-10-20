@@ -85,7 +85,7 @@ var COINART={
 };
 COINART.ETH=COINART.ETH.replace('__ETH__',NET.eth);
 var NETOF={TRX:'tron',TON:'ton',SOL:'sol'};
-function cdot(code,s){s=s||24;var c=CUR[code],n=NETOF[code],b=Math.max(14,Math.round(s*.56));
+function cdot(code,s){s=s||24;var c=CUR[code],n=NETOF[code],b=Math.max(12,Math.round(s*.56/4)*4);
  var coin='<svg class="ic" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" aria-hidden="true">'+COINART[c.coin]+'</svg>';
  var badge=n?'<span class="nb" style="width:'+b+'px;height:'+b+'px"><svg width="'+Math.round(b*(n==='ton'?1:.62))+'" height="'+Math.round(b*(n==='ton'?1:.62))+'" viewBox="0 0 60 60" aria-hidden="true">'+NET[n].replace('id="solg"','id="solg'+s+'"').replace('url(#solg)','url(#solg'+s+')')+'</svg></span>':'';
  return '<span class="tok'+(n?' hasnet':'')+'" title="'+esc(c.coin+' · сеть '+c.net)+'">'+coin+badge+'</span>'}
