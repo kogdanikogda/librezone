@@ -9,7 +9,7 @@ function timerHTML(o){return '<div class="timer'+(o.rem<=120000?' warn':'')+'" i
 function orderHTML(){
  var o=getOrder(S.openId),buy=o.dir==='buy',gc=CUR[o.giveCode],tc=CUR[o.getCode],cr=buy?tc:gc;
  var h='<h2 class="page">Детали обмена</h2><div class="card"><div class="ohead"><b>'+o.id+'</b><button class="copy-i oid" data-act="copy:'+o.id+'" aria-label="Скопировать номер">'+ic('copy',16)+'</button><span class="sp"></span>'+tag(o)+'</div>';
- h+='<div class="sumline"><div class="num">'+amtFmt(o.giveCode,o.give)+' '+short(o.giveCode)+ic('arrow',18)+amtFmt(o.getCode,o.get)+' '+short(o.getCode)+'</div><dl class="sl"><div><dt>Курс с комиссией</dt><dd>'+rateStr(cr.code)+'</dd></div><div><dt>Сеть</dt><dd>'+esc(cr.net)+'</dd></div></dl></div>';
+ h+='<div class="sumline"><div class="num">'+amtFmt(o.giveCode,o.give)+' '+short(o.giveCode)+ic('arrow',18)+amtFmt(o.getCode,o.get)+' '+short(o.getCode)+'</div><span>'+rateStr(cr.code).replace(' ₽','\u00a0₽')+'\u00a0(с\u00a0учётом комиссии)</span></div>';
  var fl=FLOW[o.dir],ix=fl.indexOf(o.status);
  if(ix>=0)h+=orderRing(LAB[o.dir],o.status==='done'?fl.length+1:ix+1);
  if(buy&&(o.status==='created'||o.status==='pay'||o.status==='check'||o.status==='crypto'))h+=copyF('Адрес для получения '+cr.coin,o.addr);
