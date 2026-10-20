@@ -715,10 +715,12 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
 @media (prefers-reduced-motion:reduce){.tag.info .dt{animation:none}}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.timer .bar i,.swapbtn,.sheet{transition:none;animation:none}}
 .bdot{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1px rgba(20,20,40,.1);flex:none;overflow:hidden}.bdot svg{width:20px;height:20px;display:block}.bdot.full{box-shadow:none;background:transparent;overflow:visible}.bdot.full svg{border-radius:8px 8px 0 0}.bdot.full svg{width:28px;height:28px}
-.sumline{display:flex;flex-direction:column;gap:4px;background:var(--brand-soft);color:var(--brand);border-radius:var(--rs);padding:12px 16px}
+.sumline{display:flex;flex-direction:column;gap:0;background:var(--brand-soft);color:var(--brand);border-radius:var(--rs);padding:12px 16px}
 .sumline .num{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--fn);font-size:18px;line-height:24px;font-weight:800;letter-spacing:-.02em}
 .sumline .ic{opacity:.7;flex:none}
-.sumline span{text-wrap:balance;font-size:12px;line-height:16px;color:var(--text2)}
+.sumline .sl{margin:8px 0 0;padding:8px 0 0;border-top:1px solid color-mix(in srgb,var(--brand) 16%,transparent);display:flex;flex-direction:column;gap:4px}
+.sumline .sl>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12px;line-height:16px}
+.sumline dt{color:var(--text2)}.sumline dd{margin:0;color:var(--text);font-weight:600;text-align:right;white-space:nowrap}
 .sumstrip{background:var(--brand-soft);color:var(--brand)}
 .sumstrip span{color:var(--text2)}
 .sumstrip .link{background:var(--surface);border-color:transparent;color:var(--brand)}
@@ -864,7 +866,7 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
         <button data-demo="reset">Начать заново</button>
       </div>
     </div>
-    <!-- Сборка: 18.10 23:25 МСК -->
+    <!-- Сборка: 20.10 16:42 МСК -->
   </aside>
   <div class="phone-wrap">
     <div class="phone flat" id="phone" data-dir="a" data-mode="light" data-pal="indigo" data-hero="mesh">
@@ -1155,7 +1157,7 @@ function timerHTML(o){return '<div class="timer'+(o.rem<=120000?' warn':'')+'" i
 function orderHTML(){
  var o=getOrder(S.openId),buy=o.dir==='buy',gc=CUR[o.giveCode],tc=CUR[o.getCode],cr=buy?tc:gc;
  var h='<h2 class="page">Детали обмена</h2><div class="card"><div class="ohead"><b>'+o.id+'</b><button class="copy-i oid" data-act="copy:'+o.id+'" aria-label="Скопировать номер">'+ic('copy',16)+'</button><span class="sp"></span>'+tag(o)+'</div>';
- h+='<div class="sumline"><div class="num">'+amtFmt(o.giveCode,o.give)+' '+short(o.giveCode)+ic('arrow',18)+amtFmt(o.getCode,o.get)+' '+short(o.getCode)+'</div><span>'+esc(cr.name)+' · '+rateStr(cr.code)+' · комиссия включена</span></div>';
+ h+='<div class="sumline"><div class="num">'+amtFmt(o.giveCode,o.give)+' '+short(o.giveCode)+ic('arrow',18)+amtFmt(o.getCode,o.get)+' '+short(o.getCode)+'</div><dl class="sl"><div><dt>Курс с комиссией</dt><dd>'+rateStr(cr.code)+'</dd></div><div><dt>Сеть</dt><dd>'+esc(cr.net)+'</dd></div></dl></div>';
  var fl=FLOW[o.dir],ix=fl.indexOf(o.status);
  if(ix>=0)h+=orderRing(LAB[o.dir],o.status==='done'?fl.length+1:ix+1);
  if(buy&&(o.status==='created'||o.status==='pay'||o.status==='check'||o.status==='crypto'))h+=copyF('Адрес для получения '+cr.coin,o.addr);
