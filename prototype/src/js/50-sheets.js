@@ -16,20 +16,20 @@ function layerHTML(){
  if(S.sheet==='bank')return bankSheet();
  var m=S.modal;
  if(m==='refer')return '<div class="scrim"><div class="modal refer"><button class="xbtn" data-act="close" aria-label="Закрыть">'+ic('close',20)+'</button><div class="logo">'+logoMark()+'<span>Libre<b>.zone</b></span></div><h3>Пригласи друга и получи скидку 10%</h3><p>Друг получит купон на $2 при обмене от 20 000 ₽.</p><button class="btn primary" data-act="to-profile">Подробнее</button></div></div>';
- if(m==='logoutq')return '<div class="scrim"><div class="modal mi"><span class="mic neu">'+ic('logout',30)+'</span><h3>Выйти из аккаунта?</h3><p>Активные обмены продолжатся, статус можно будет проверить после входа.</p><button class="btn danger" data-act="logout">Выйти</button><button class="btn outline" data-act="close">Отмена</button></div></div>';
- if(m==='confirm')return '<div class="scrim"><div class="modal mi"><span class="mic warn">'+ic('warn',30)+'</span><h3>Вы уверены, что хотите отменить обмен?</h3><p>Если вы уже перевели деньги, отменять обмен не нужно.</p><button class="btn primary" data-act="cancel-yes">Да, отменить</button><button class="btn outline" data-act="close">Нет</button></div></div>';
- if(m==='timeout')return '<div class="scrim"><div class="modal mi"><span class="mic err">'+ic('clock',30)+'</span><h3>Время вышло</h3><p>Вы не отправили средства за отведённые 10 минут. Обмен отменён.</p><button class="btn primary" data-act="close">Понятно</button></div></div>';
- if(m==='noname')return '<div class="scrim"><div class="modal mi"><span class="mic err">'+ic('warn',30)+'</span><h3>Не совершайте перевод</h3><p>Имя получателя не соответствует указанному. Напишите в поддержку, мы проверим данные.</p><button class="btn primary" data-act="support:'+(S.openId||'')+'">Написать в поддержку</button><button class="btn outline" data-act="close">Отмена</button></div></div>';
+ if(m==='logoutq')return '<div class="scrim"><div class="modal mi"><span class="mic neu">'+ic('logout',32)+'</span><h3>Выйти из аккаунта?</h3><p>Активные обмены продолжатся, статус можно будет проверить после входа.</p><button class="btn danger" data-act="logout">Выйти</button><button class="btn outline" data-act="close">Отмена</button></div></div>';
+ if(m==='confirm')return '<div class="scrim"><div class="modal mi"><span class="mic warn">'+ic('warn',32)+'</span><h3>Вы уверены, что хотите отменить обмен?</h3><p>Если вы уже перевели деньги, отменять обмен не нужно.</p><button class="btn primary" data-act="cancel-yes">Да, отменить</button><button class="btn outline" data-act="close">Нет</button></div></div>';
+ if(m==='timeout')return '<div class="scrim"><div class="modal mi"><span class="mic err">'+ic('clock',32)+'</span><h3>Время вышло</h3><p>Вы не отправили средства за отведённые 10 минут. Обмен отменён.</p><button class="btn primary" data-act="close">Понятно</button></div></div>';
+ if(m==='noname')return '<div class="scrim"><div class="modal mi"><span class="mic err">'+ic('warn',32)+'</span><h3>Не совершайте перевод</h3><p>Имя получателя не соответствует указанному. Напишите в поддержку, мы проверим данные.</p><button class="btn primary" data-act="support:'+(S.openId||'')+'">Написать в поддержку</button><button class="btn outline" data-act="close">Отмена</button></div></div>';
  return '';
 }
 
 var ACTIVE=['created','pay','check','aml','crypto','fiat'];
 function activeOrders(){return S.orders.filter(function(o){return ACTIVE.indexOf(o.status)>=0})}
 function plateHTML(){var a=activeOrders();if(!a.length||S.screen==='order')return '';var o=a[0],s=stat(o),c=CUR[o.dir==='buy'?o.getCode:o.giveCode];
- var t=o.status==='pay'?'<span class="ptm num" id="ptm" data-id="'+o.id+'">'+mmss(o.rem)+'</span>':'<span class="ptm">'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</span>';
+ var t=o.status==='pay'?'<span class="ptm num" id="ptm" data-id="'+o.id+'">'+mmss(o.rem)+'</span>':'<span class="ptm">'+ic('chevl',20).replace('class="ic"','class="ic flip"')+'</span>';
  return '<button class="plate" data-act="open:'+o.id+'" aria-label="Открыть активный обмен '+o.id+'">'+cdot(c.code,30)+'<span class="pt"><b>'+o.id+(a.length>1?' <i>+'+(a.length-1)+'</i>':'')+'</b><span>'+s[0]+'</span></span>'+t+'</button>'}
 function tabsHTML(){var n=activeOrders().length,cur=S.screen;
- function t(k,icn,l,b){return '<button class="tab'+(cur===k?' on':'')+'" data-act="tab:'+k+'" aria-current="'+(cur===k?'page':'false')+'">'+ic(icn,22)+'<span>'+l+'</span>'+(b?'<i class="bdg">'+b+'</i>':'')+'</button>'}
+ function t(k,icn,l,b){return '<button class="tab'+(cur===k?' on':'')+'" data-act="tab:'+k+'" aria-current="'+(cur===k?'page':'false')+'">'+ic(icn,24)+'<span>'+l+'</span>'+(b?'<i class="bdg">'+b+'</i>':'')+'</button>'}
  return '<div class="tabzone">'+plateHTML()+'<nav class="tabs" aria-label="Разделы">'+t('home','home','Обмен')+t('orders','list','Мои обмены',n)+t('profile','user','Профиль')+'</nav></div>'}
 
 var DOCS=[
@@ -61,15 +61,15 @@ var DOCS=[
    ['Что может задержать обмен',['Платёж от третьего лица, несовпадение имени, высокий риск адреса. Мы приостановим обмен и напишем вам. Обычно хватает короткого пояснения.']],
    ['Запрещено',['Обмен средств, полученных незаконно, обмен в интересах третьих лиц, дробление сумм ради обхода проверок.']]]}];
 function docsHTML(){
- var h='<button class="back" data-act="docback">'+ic('chevl',18)+'Назад</button><h2 class="page">Правила и политика</h2>'+
-  '<div class="doclist">'+DOCS.map(function(d){return '<button class="dcard" data-act="doc:'+d.id+'"><span class="wi2">'+ic(d.icon,20)+'</span><span class="g"><b>'+d.t+'</b><small>'+d.d+'</small><em>Редакция от 14.10.2026</em></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button>'}).join('')+'</div>'+
-  '<section class="card rows"><button class="row tgrow" data-act="support:">'+ic('send',20,'#2AABEE')+'<span class="g">Остались вопросы?<small>Напишите в чат поддержки</small></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button></section>';
+ var h='<button class="back" data-act="docback">'+ic('chevl',16)+'Назад</button><h2 class="page">Правила и политика</h2>'+
+  '<div class="doclist">'+DOCS.map(function(d){return '<button class="dcard" data-act="doc:'+d.id+'"><span class="wi2">'+ic(d.icon,20)+'</span><span class="g"><b>'+d.t+'</b><small>'+d.d+'</small><em>Редакция от 14.10.2026</em></span>'+ic('chevl',20).replace('class="ic"','class="ic flip"')+'</button>'}).join('')+'</div>'+
+  '<section class="card rows"><button class="row tgrow" data-act="support:">'+ic('send',20,'#2AABEE')+'<span class="g">Остались вопросы?<small>Напишите в чат поддержки</small></span>'+ic('chevl',20).replace('class="ic"','class="ic flip"')+'</button></section>';
  return nav(false)+'<div class="content" id="scroller">'+h+'</div>'}
 function docHTML(){var d=DOCS.filter(function(x){return x.id===S.doc})[0]||DOCS[0];
- var h='<button class="back" data-act="docback">'+ic('chevl',18)+'Назад</button><h2 class="page">'+d.t+'</h2><div class="dmeta">Редакция от 14.10.2026 · '+d.secs.length+' разделов</div>'+
+ var h='<button class="back" data-act="docback">'+ic('chevl',16)+'Назад</button><h2 class="page">'+d.t+'</h2><div class="dmeta">Редакция от 14.10.2026 · '+d.secs.length+' разделов</div>'+
   '<section class="dsum"><b>Коротко</b><ul>'+d.sum.map(function(s){return '<li>'+ic('check',16)+'<span>'+s+'</span></li>'}).join('')+'</ul></section>'+
   '<nav class="dtoc" aria-label="Содержание">'+d.secs.map(function(s,i){return '<button data-act="dsec:'+i+'">'+(i+1)+'. '+s[0]+'</button>'}).join('')+'</nav>'+
   '<article class="dbody">'+d.secs.map(function(s,i){return '<section id="dsec'+i+'"><h3><span class="n">'+(i+1)+'</span><span class="t">'+s[0]+'</span></h3>'+s[1].map(function(p){return '<p>'+p+'</p>'}).join('')+'</section>'}).join('')+'</article>'+
-  '<div class="dnext">'+DOCS.filter(function(x){return x.id!==d.id}).map(function(x){return '<button class="dcard sm" data-act="doc:'+x.id+'"><span class="g"><small>Другие документы</small><b>'+x.t+'</b></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button>'}).join('')+'</div>';
+  '<div class="dnext">'+DOCS.filter(function(x){return x.id!==d.id}).map(function(x){return '<button class="dcard sm" data-act="doc:'+x.id+'"><span class="g"><small>Другие документы</small><b>'+x.t+'</b></span>'+ic('chevl',20).replace('class="ic"','class="ic flip"')+'</button>'}).join('')+'</div>';
  return nav(false)+'<div class="content" id="scroller">'+h+'</div>'}
 

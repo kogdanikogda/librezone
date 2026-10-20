@@ -13,14 +13,14 @@ function noteHTML(){
   else if(b.link)t='Для Т-Банка достаточно приложить ссылку на чек из приложения после перевода.';
   else t='Потребуется веб-версия выбранного банка для подтверждения транзакции. <a href="#" data-act="why">Почему?</a>';
  }else t='Убедитесь, что реквизиты верны. Сервис не несёт ответственности за потерю средств из-за неверно указанных данных.';
- return '<div class="notebox">'+ic('info',18)+'<span>'+t+'</span></div>'}
+ return '<div class="notebox">'+ic('info',16)+'<span>'+t+'</span></div>'}
 /* индикатор шага: кольцо с номером и название шага */
 function stepRing(st){var n=st+1,c=2*Math.PI*20,nm=st===1?'Реквизиты':'Проверка',nx=st===1?'Дальше: проверка':'Последний шаг перед оплатой';
  return '<div class="stepring" role="group" aria-label="Шаг '+n+' из 3"><div class="ring"><svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="20" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="23" cy="23" r="20" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+(c*n/3).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 23 23)"/></svg><b>'+n+'/3</b></div><div class="stt"><b>'+nm+'</b><span>'+nx+'</span></div></div>'}
 function newHTML(){
  var buy=S.dir==='buy',c=CUR[S.coin],b=S.bank?bank(S.bank):null,st=S.step,tb=b&&b.link,body;
- var strip='<div class="sumstrip"><div><span>Отдаёте</span><b class="num">'+sideStr('give')+' '+short(giveC())+'</b></div>'+ic('arrow',18)+'<div><span>Получаете</span><b class="num">'+sideStr('get')+' '+short(getC())+'</b></div><button class="link" data-act="edit-amount">Изменить</button></div>';
- var head='<button class="back" data-act="newback">'+ic('chevl',18)+'Назад</button>'+strip+''+stepRing(st);
+ var strip='<div class="sumstrip"><div><span>Отдаёте</span><b class="num">'+sideStr('give')+' '+short(giveC())+'</b></div>'+ic('arrow',16)+'<div><span>Получаете</span><b class="num">'+sideStr('get')+' '+short(getC())+'</b></div><button class="link" data-act="edit-amount">Изменить</button></div>';
+ var head='<button class="back" data-act="newback">'+ic('chevl',16)+'Назад</button>'+strip+''+stepRing(st);
  if(st===1){
   var bl=buy?'Банк отправки':'Банк получения';
   var al=buy?'Адрес кошелька в сети '+c.net:(b?(tb?'Номер карты или телефона':'Номер телефона для СБП'):'Номер телефона или карты');

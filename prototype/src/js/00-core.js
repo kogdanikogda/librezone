@@ -161,14 +161,14 @@ function unreadN(){return S.notes.filter(function(n){return !n.read}).length}
 function nav(over){var u=unreadN();return '<header class="nav'+(over?' over':'')+'" id="nav"><div class="logo">'+logoMark()+'<span>Libre<b>.zone</b></span></div>'+'<button class="bell" data-act="notes" aria-label="Уведомления'+(S.user&&u?', непрочитанных: '+u:'')+'">'+ic('bell',20)+(S.user&&u?'<i class="bdg2">'+u+'</i>':'')+'</button>'+'</header>'}
 var NK={pay:['clock','info'],ok:['checkc','ok'],err:['warn','err'],info:['mail','neu'],gift:['gift','neu']};
 function notesSheet(){var n=S.notes,u=unreadN();
- var list=n.length?'<ul class="nlist">'+n.map(function(x,i){var k=NK[x.k];return '<li><button class="nitem'+(x.read?'':' unread')+'" data-act="note:'+i+'"><span class="nic '+k[1]+'">'+ic(k[0],20)+'</span><span class="ntx"><b>'+x.t+'</b><span>'+x.d+'</span></span><span class="nwh">'+x.w+(x.o||x.a?ic('chevl',16).replace('class="ic"','class="ic flip"'):'')+'</span></button></li>'}).join('')+'</ul>':'<div class="nempty"><span class="mic neu">'+ic('bell',30)+'</span><b>Пока нет уведомлений</b><span>Здесь появятся статусы обменов и важные сообщения</span></div>';
+ var list=n.length?'<ul class="nlist">'+n.map(function(x,i){var k=NK[x.k];return '<li><button class="nitem'+(x.read?'':' unread')+'" data-act="note:'+i+'"><span class="nic '+k[1]+'">'+ic(k[0],20)+'</span><span class="ntx"><b>'+x.t+'</b><span>'+x.d+'</span></span><span class="nwh">'+x.w+(x.o||x.a?ic('chevl',16).replace('class="ic"','class="ic flip"'):'')+'</span></button></li>'}).join('')+'</ul>':'<div class="nempty"><span class="mic neu">'+ic('bell',32)+'</span><b>Пока нет уведомлений</b><span>Здесь появятся статусы обменов и важные сообщения</span></div>';
  return sheetWrap('Уведомления',(u?'<button class="nall" data-act="notesread">Прочитать все</button>':'')+list,true)}
 function tzInfo(){var off=-new Date().getTimezoneOffset()/60,d=off-3;
  function hm(h,m){var t=((h+d)%24+24)%24,hh=Math.floor(t),mm=m+Math.round((t-hh)*60);if(mm>=60){hh=(hh+1)%24;mm-=60}return pad(hh)+':'+pad(mm)}
  var g='GMT'+(off>=0?'+':'−')+(Math.abs(off)%1?Math.abs(off).toFixed(1).replace('.',','):Math.abs(off));
  return {same:d===0,range:hm(10,0)+'–'+hm(18,30),g:g}}
 function hoursHTML(){var z=tzInfo(),on=S.working;
- return '<section class="hours" aria-label="Часы работы"><div class="hh"><span class="hi">'+ic('clock',22)+'</span><div class="ht"><b>Часы работы обменов</b><span>Заявки принимаем и проводим только в это время</span></div></div>'+
+ return '<section class="hours" aria-label="Часы работы"><div class="hh"><span class="hi">'+ic('clock',24)+'</span><div class="ht"><b>Часы работы обменов</b><span>Заявки принимаем и проводим только в это время</span></div></div>'+
   '<div class="hgrid"><div class="hcell"><small>По Москве</small><b>10:00–18:30</b><em>МСК, GMT+3</em></div><div class="hcell"><small>По вашему времени</small><b>'+z.range+'</b><em>'+(z.same?'совпадает с Москвой':z.g)+'</em></div></div>'+
   '<p class="hnote">'+(on?'Сейчас открыто: закроемся в 18:30 МСК. Заявку, созданную до закрытия, доведём до конца.':'Сейчас закрыто: откроемся в 10:00 МСК. Статус активных обменов можно проверить в «Моих обменах».')+' Поддержка работает в те же часы.</p></section>'}
 function livePill(){return S.working?'<span class="live on">Работаем до 18:30</span>':'<span class="live off">Откроемся в 10:00</span>'}

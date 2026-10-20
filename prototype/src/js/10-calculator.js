@@ -2,11 +2,11 @@
 function curPill(code){
  if(code==='RUB')return '<span class="curpill fixed"><b class="rubmark">₽</b><span>RUB</span></span>';
  var c=CUR[code];
- return '<button class="curpill" data-act="sheet:cur" aria-haspopup="dialog" aria-label="Выбрать криптовалюту">'+cdot(code,24)+'<span>'+c.coin+'<small>'+esc(c.net)+'</small></span>'+ic('chevd',18)+'</button>'}
-function chipsHTML(){return '<div class="chips6" role="group" aria-label="Сумма в рублях">'+CHIPS.map(function(v,i){return '<button class="chip'+(QBARS[i]===1?' slow':'')+'" data-act="chip:'+i+'" aria-pressed="'+(S.amount===v)+'"><span class="num">'+nf(v,0)+' ₽</span><span class=\"ct\">'+ic('clock',11)+ETA[QBARS[i]][0]+'</span></button>'}).join('')+'</div>'}
-function etaHTML(){var i=CHIPS.indexOf(S.amount);if(i<0)return '<div class="eta">'+ic('clock',18)+'<span>Выберите сумму, чтобы увидеть ожидаемое время обмена</span></div>';var e=ETA[QBARS[i]];return '<div class="eta">'+ic('clock',20)+'<span><b>'+e[0]+'</b>'+e[1]+'. Время примерное, считаем по встречным заявкам сейчас</span></div>'}
+ return '<button class="curpill" data-act="sheet:cur" aria-haspopup="dialog" aria-label="Выбрать криптовалюту">'+cdot(code,24)+'<span>'+c.coin+'<small>'+esc(c.net)+'</small></span>'+ic('chevd',20)+'</button>'}
+function chipsHTML(){return '<div class="chips6" role="group" aria-label="Сумма в рублях">'+CHIPS.map(function(v,i){return '<button class="chip'+(QBARS[i]===1?' slow':'')+'" data-act="chip:'+i+'" aria-pressed="'+(S.amount===v)+'"><span class="num">'+nf(v,0)+' ₽</span><span class=\"ct\">'+ic('clock',12)+ETA[QBARS[i]][0]+'</span></button>'}).join('')+'</div>'}
+function etaHTML(){var i=CHIPS.indexOf(S.amount);if(i<0)return '<div class="eta">'+ic('clock',16)+'<span>Выберите сумму, чтобы увидеть ожидаемое время обмена</span></div>';var e=ETA[QBARS[i]];return '<div class="eta">'+ic('clock',20)+'<span><b>'+e[0]+'</b>'+e[1]+'. Время примерное, считаем по встречным заявкам сейчас</span></div>'}
 function calcHTML(){
- if(!S.working)return '<section class="calc sleep" aria-label="Обмен недоступен"><span class="moon">'+ic('moon',34)+'</span><h3>Обмены сейчас недоступны</h3><p>Мы работаем <b>10:00–18:30 GMT+3</b>. Если у вас уже есть активный обмен, проверьте его статус в разделе <a href="#" data-act="go:orders">Мои обмены</a>.</p></section>';
+ if(!S.working)return '<section class="calc sleep" aria-label="Обмен недоступен"><span class="moon">'+ic('moon',32)+'</span><h3>Обмены сейчас недоступны</h3><p>Мы работаем <b>10:00–18:30 GMT+3</b>. Если у вас уже есть активный обмен, проверьте его статус в разделе <a href="#" data-act="go:orders">Мои обмены</a>.</p></section>';
  var cc=S.coin;
  return '<section class="calc grouped" aria-label="Калькулятор обмена">'+
   '<div class="pairbox">'+
