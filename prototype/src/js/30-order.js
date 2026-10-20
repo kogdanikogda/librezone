@@ -60,7 +60,7 @@ function profileHTML(){
  var h='<h2 class="page">Профиль</h2><section class="card pf'+(S.edit?' editing':'')+'">'+f('pfio','Ф.И.О.',u.fio)+f('pemail','Email',u.email)+f('pphone','Телефон',u.phone,'Номер телефона привязан к аккаунту, изменить его нельзя')+act+(S.edit?dchips('Демо-данные',[['Другие данные','prof:other']]):'')+'</section>'+
   '<section class="card"><h3 style="margin:0;font-family:var(--fd);font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.015em">Реферальная программа</h3><div class="refbox"><span>Зарабатывайте скидки, делясь Libre.zone с друзьями.</span><ol class="reflist"><li>Отправьте ссылку друзьям.</li><li>Друг регистрируется по вашей ссылке и получает купон $2 на обмен от 20 000 ₽.</li><li>Друг завершает первый обмен.</li><li>Вы получаете скидку 10% на комиссию следующего обмена за каждого приглашённого друга.</li></ol></div>'+
   copyF('Моя партнёрская ссылка','https://dev.libre.zone/partner/cd76gcfrk')+'<button class="btn soft" data-act="share">'+ic('send',18)+'Поделиться в Telegram</button><div><div class="stat"><span>Приглашённых друзей</span><b>0</b></div><div class="stat"><span>Обменов со скидкой 10%</span><b>0</b></div></div></section>';
- var th=document.documentElement.getAttribute('data-theme')||'auto';
+ var th=$('#phone').getAttribute('data-mode')==='dark'?'dark':'light';
  function seg2(act,items,cur){return '<span class="seg2" role="group">'+items.map(function(x){return '<button data-act="'+act+':'+x[0]+'" aria-pressed="'+(cur===x[0])+'"'+(x[2]?' aria-label="'+x[2]+'"':'')+'>'+x[1]+'</button>'}).join('')+'</span>'}
  h+='<h3 class="grp">Помощь</h3><section class="card rows">'+
    '<button class="row tgrow" data-act="support:">'+ic('send',20,'#2AABEE')+'<span class="g">Чат поддержки в Telegram<small>Отвечаем 10:00–18:30 МСК</small></span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button>'+
@@ -68,7 +68,7 @@ function profileHTML(){
   '<h3 class="grp">Настройки</h3><section class="card rows">'+
    '<label class="row">'+ic('bell',20)+'<span class="g">Уведомления в Telegram<small>О смене статуса обмена</small></span><input type="checkbox" class="sw" id="pnotif" checked></label>'+
    '<div class="row">'+ic('globe',20)+'<span class="g">Язык</span>'+seg2('lang',[['ru','RU'],['en','EN']],'ru')+'</div>'+
-   '<div class="row">'+ic('sun',20)+'<span class="g">Тема</span>'+seg2('ptheme',[['auto','Авто'],['light',ic('sun',15),'Светлая'],['dark',ic('moon',15),'Тёмная']],th)+'</div></section>'+
+   '<div class="row">'+ic('sun',20)+'<span class="g">Тема</span>'+seg2('ptheme',[['light',ic('sun',15),'Светлая'],['dark',ic('moon',15),'Тёмная']],th)+'</div></section>'+
   '<section class="card rows"><button class="row" data-act="docs">'+ic('doc',20)+'<span class="g">Правила и политика</span>'+ic('chevl',18).replace('class="ic"','class="ic flip"')+'</button></section>'+
   '<button class="btn outline danger-t" data-act="logoutq">'+ic('logout',18)+'Выйти из аккаунта</button>'+
   '<div class="foot" style="padding-top:8px">Libre.zone · Вход защищён Google reCAPTCHA</div>';

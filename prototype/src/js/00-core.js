@@ -65,7 +65,7 @@ var CUR={
 var COINS=['TRX','TON','SOL','BTC','ETH'];
 var CHIPS=[50,100,1000,5000,10000,50000],QBARS=[2,3,3,3,2,1];
 var ETA={3:['≈ 3 мин','Много встречных заявок, обмен пройдёт быстро'],2:['≈ 8 мин','Встречных заявок немного, обмен чуть дольше'],1:['≈ 20 мин','Встречных заявок мало, придётся подождать']};
-var BANKS=[{id:'avto',n:'Автоторгбанк',c:'#2EAD5B',a:'А'},{id:'aeb',n:'АЭБ',c:'#2D6CDF',a:'А'},{id:'kazan',n:'Банк Казани',c:'#3CB878',a:'К'},{id:'bks',n:'БКС',c:'#4A90E2',a:'Б'},{id:'viking',n:'Викинг',c:'#5C7CFA',a:'В'},{id:'vtb',n:'ВТБ',c:'#0A2896',a:'В'},{id:'gpb',n:'Газпромбанк',c:'#2F6BC8',a:'Г'},{id:'raif',n:'Райффайзенбанк',c:'#F0C800',a:'R',d:1},{id:'sber',n:'СберБанк',c:'#21A038',a:'С'},{id:'tbank',n:'Т-Банк',c:'#FFDD2D',a:'Т',d:1,link:true},{id:'ural',n:'Уралсиб',c:'#3A1C71',a:'У'},{id:'alfa',n:'Альфа-Банк',c:'#EF3124',a:'А'}];
+var BANKS=[{id:'avto',n:'Автоторгбанк',c:'#2EAD5B',a:'А'},{id:'kazan',n:'Банк Казани',c:'#3CB878',a:'К'},{id:'bks',n:'БКС',c:'#4A90E2',a:'Б'},{id:'viking',n:'Викинг',c:'#5C7CFA',a:'В'},{id:'vtb',n:'ВТБ',c:'#0A2896',a:'В'},{id:'gpb',n:'Газпромбанк',c:'#2F6BC8',a:'Г'},{id:'raif',n:'Райффайзенбанк',c:'#F0C800',a:'R',d:1},{id:'sber',n:'СберБанк',c:'#21A038',a:'С'},{id:'tbank',n:'Т-Банк',c:'#FFDD2D',a:'Т',d:1,link:true},{id:'ural',n:'Уралсиб',c:'#3A1C71',a:'У'},{id:'alfa',n:'Альфа-Банк',c:'#EF3124',a:'А'}];
 var POPULAR=['sber','tbank','alfa','vtb'];
 var bank=function(id){return BANKS.filter(function(b){return b.id===id})[0]};
 function referLater(o){clearTimeout(S._rt);S._rt=setTimeout(function(){if(o.status==='done'&&S.screen==='order'&&S.openId===o.id&&!S.modal){S.modal='refer';render()}},2500)}
