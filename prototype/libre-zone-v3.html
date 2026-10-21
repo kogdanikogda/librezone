@@ -99,11 +99,11 @@ body.dopen .pback{opacity:1;visibility:visible}
 .panel{position:fixed;top:0;right:0;bottom:0;z-index:55;width:min(320px,100%);padding:72px 16px 24px;padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto;display:flex;flex-direction:column;gap:16px;background:var(--surface);border-left:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
 body.dopen .panel{transform:none;visibility:visible}
 /* рамка iPhone всегда, на любом размере окна; содержимое экрана остаётся шириной 390, рамка масштабируется zoom */
-body .phone-wrap{position:relative;flex-basis:414px;width:414px;max-width:none}
+body .phone-wrap{position:relative;flex:0 0 414px;width:414px;max-width:none}
 .phone-wrap::before,.phone-wrap::after{content:"";position:absolute;width:4px;border-radius:2px;background:#3b3b42;z-index:-1}
 .phone-wrap::before{left:-3px;top:112px;height:32px;box-shadow:0 56px 0 0 #3b3b42,0 112px 0 0 #3b3b42}
 .phone-wrap::after{right:-3px;top:176px;height:88px}
-body .phone{height:min(868px,calc((100dvh - 48px) / var(--z,1)));border:12px solid #0b0b0f;border-radius:56px;box-shadow:0 0 0 2px #55555d,0 0 0 3px #1b1b20,var(--shadow)}
+body .phone{height:868px;border:12px solid #0b0b0f;border-radius:56px;box-shadow:0 0 0 2px #55555d,0 0 0 3px #1b1b20,var(--shadow)}
 .phone .nav{height:108px;padding-top:48px}.phone .hero{padding-top:132px}.phone .hero .art{top:108px}.phone .tabs{padding-bottom:16px}.menu{padding-top:48px}
 .sbar{display:flex;position:absolute;z-index:100;top:0;left:0;right:0;height:48px;padding:0 32px 0 40px;align-items:center;justify-content:space-between;pointer-events:none;color:#0b0b0f}
 .phone[data-mode="dark"] .sbar,.phone[data-mode="dark"] .hind{color:#fff}
@@ -864,7 +864,7 @@ p,.desc,.dbody p,.dcard small,.row .g small,.ws span,.tile span,.hnote,.notebox 
         <button data-demo="reset">Начать заново</button>
       </div>
     </div>
-    <!-- Сборка: 20.10 18:15 МСК -->
+    <!-- Сборка: 21.10 12:07 МСК -->
   </aside>
   <div class="phone-wrap">
     <div class="phone flat" id="phone" data-dir="a" data-mode="light" data-pal="indigo" data-hero="mesh">
@@ -1663,8 +1663,8 @@ document.addEventListener('pointerup',up);document.addEventListener('pointercanc
 window.addEventListener('resize',function(){alignIcons($('#app'));alignIcons($('#layer'))});
 /* в панели только «Светлая» и «Тёмная»: стартуем с темы системы */
 demo('theme:'+(mq&&mq.matches?'dark':'light'));
-/* крупный интерфейс на больших экранах: масштаб по высоте окна, не выше 1,5 */
-function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=Math.min(H/760,1.5,(W-24)/414);z=Math.max(.5,Math.round(z*100)/100);
+/* рамка всегда 414×868 (экран 390×844), масштабируется целиком под окно, не выше 1,5 */
+function fitZoom(){var W=window.innerWidth,H=window.innerHeight,z=Math.min((H-48)/868,1.5,(W-24)/414);z=Math.max(.5,Math.floor(z*100)/100);
  if(z!==ZM){ZM=z;document.documentElement.style.setProperty('--z',String(z));alignIcons($('#app'));alignIcons($('#layer'));fitTree($('#phone'))}}
 window.addEventListener('resize',fitZoom);
 (function(){var m=null;try{m=localStorage.getItem('lz-motion')}catch(e){}if(m&&MO[m]||m==='off')demo('motion:'+m)})();

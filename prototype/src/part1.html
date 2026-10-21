@@ -99,11 +99,11 @@ body.dopen .pback{opacity:1;visibility:visible}
 .panel{position:fixed;top:0;right:0;bottom:0;z-index:55;width:min(320px,100%);padding:72px 16px 24px;padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto;display:flex;flex-direction:column;gap:16px;background:var(--surface);border-left:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
 body.dopen .panel{transform:none;visibility:visible}
 /* рамка iPhone всегда, на любом размере окна; содержимое экрана остаётся шириной 390, рамка масштабируется zoom */
-body .phone-wrap{position:relative;flex-basis:414px;width:414px;max-width:none}
+body .phone-wrap{position:relative;flex:0 0 414px;width:414px;max-width:none}
 .phone-wrap::before,.phone-wrap::after{content:"";position:absolute;width:4px;border-radius:2px;background:#3b3b42;z-index:-1}
 .phone-wrap::before{left:-3px;top:112px;height:32px;box-shadow:0 56px 0 0 #3b3b42,0 112px 0 0 #3b3b42}
 .phone-wrap::after{right:-3px;top:176px;height:88px}
-body .phone{height:min(868px,calc((100dvh - 48px) / var(--z,1)));border:12px solid #0b0b0f;border-radius:56px;box-shadow:0 0 0 2px #55555d,0 0 0 3px #1b1b20,var(--shadow)}
+body .phone{height:868px;border:12px solid #0b0b0f;border-radius:56px;box-shadow:0 0 0 2px #55555d,0 0 0 3px #1b1b20,var(--shadow)}
 .phone .nav{height:108px;padding-top:48px}.phone .hero{padding-top:132px}.phone .hero .art{top:108px}.phone .tabs{padding-bottom:16px}.menu{padding-top:48px}
 .sbar{display:flex;position:absolute;z-index:100;top:0;left:0;right:0;height:48px;padding:0 32px 0 40px;align-items:center;justify-content:space-between;pointer-events:none;color:#0b0b0f}
 .phone[data-mode="dark"] .sbar,.phone[data-mode="dark"] .hind{color:#fff}
