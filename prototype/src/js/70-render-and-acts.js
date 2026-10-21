@@ -221,7 +221,7 @@ if(mq){if(mq.addEventListener)mq.addEventListener('change',applyMode);else if(mq
 function setDir(v){$('#phone').setAttribute('data-dir',v);var n=$('#dirnote');if(n)n.textContent=DIRS[v];pressed('dir',v)}
 function demo(cmd){
  var p=cmd.split(':'),k=p[0],v=p[1];
- if(k==='panel'){var op=v==='toggle'?!document.body.classList.contains('dopen'):v==='show';document.body.classList.toggle('dopen',op);var tb=$('#ptoggle');if(tb){tb.setAttribute('aria-expanded',String(op));tb.setAttribute('aria-label',op?'Закрыть меню прототипа':'Открыть меню прототипа')}return}
+ if(k==='panel'){var op=v==='toggle'?!document.body.classList.contains('dopen'):v==='show';document.body.classList.toggle('dopen',op);var tb=$('#ptoggle');if(tb){tb.setAttribute('aria-expanded',String(op));tb.setAttribute('aria-label',op?'Закрыть настройки':'Настройки и демо-контент')}return}
  if(k==='motion'){MOTION=v;pressed('motion',v);try{localStorage.setItem('lz-motion',v)}catch(e){}return}
  if(k==='dir'){setDir(v);return}
  if(k==='sc'){scenario(v);return}
